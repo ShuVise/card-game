@@ -1,6 +1,24 @@
 package cards.cardAbilities;
 
-public interface CardAbility 
+import cards.Card;
+
+public abstract class CardAbility implements CardAbilityInterface
 {
-	public void execute();
+	protected Card card;
+	
+	public void setCard(Card card)
+	{
+		this.card = card;
+	}
+	
+	public Card getCard()
+	{
+		return card;
+	}
+	
+	public void registerAbility(Card card)
+	{
+		
+	}
+	
 }

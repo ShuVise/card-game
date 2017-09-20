@@ -9,7 +9,7 @@ import cards.Card;
 
 public class CardCache 
 {
-	private Hashtable<String, CardPrototype> cardCache  = new Hashtable<String, CardPrototype>();
+	private Hashtable<String, Card> cardCache  = new Hashtable<String, Card>();
 	
 	public Card getCard(String name)
 	{
@@ -17,10 +17,10 @@ public class CardCache
 		return card;
 	}
 	
-	public void addToCache(CardPrototype card)
+	public void addToCache(Card card)
 	{
 		cardCache.put(card.getName(), card);
-		System.out.println("Adding: " + card);
+		System.out.println("Adding: " + card + " to cache");
 	}
 	
 	public String toString()

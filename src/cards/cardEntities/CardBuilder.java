@@ -2,22 +2,23 @@ package cards.cardEntities;
 
 import java.util.List;
 
-import cardCache.CardPrototype;
-import cardCache.VasalPrototype;
+import cards.Card;
 import cards.cardAbilities.CardAbility;
+import cards.cardAbilities.CardAbilityInterface;
 
 public class CardBuilder 
 {
 	
-	public CardPrototype buildCard(String name, List<CardAbility> cardAbilities, String type)
+	public Card buildCard(String name, List<CardAbility> cardAbilities, String type)
 	{
-		CardPrototype card = null;
+		Card card = null;
 		if(type.equalsIgnoreCase("minion"))
 		{
 			System.out.println("Building card named: " + name);
-			card = new VasalPrototype();
-			card.setName(name);
-			for(CardAbility ability : cardAbilities) card.addCardAbility(ability);
+			MinionCard minionCard = new MinionCard();
+			minionCard.setName(name);
+			for(CardAbility ability : cardAbilities) minionCard.addAbility(ability);
+			card = minionCard;
 		}
 		return card;
 	}

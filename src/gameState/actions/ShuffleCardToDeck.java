@@ -15,7 +15,7 @@ public class ShuffleCardToDeck implements Action
 	}
 	public void execute() 
 	{
-		System.out.println("Shuffling card " + card + " to " + player + "'s deck\n");
+		System.out.println("Shuffling card " + card + " to " + player.getName() + "'s deck\n");
 		GameState.getGameState().addCardToDeck(player, card);
 	}
 

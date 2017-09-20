@@ -1,15 +1,23 @@
 package cards.cardsBodies;
 
-public class Vasal implements CardBodyInterface
+import player.Player;
+
+public class Minion implements CardBodyInterface
 {
 	private int hp;
 	private String name;
 	private int myId;
-	public Vasal(String name, int hp)
+	private Player owner;
+	public Minion(String name, int hp)
 	{
 		this.name = name;
 		this.hp = hp;
 		this.myId = 0;
+	}
+	
+	public void setOwner(Player player)
+	{
+		this.owner = player;
 	}
 	
 	public String getName()

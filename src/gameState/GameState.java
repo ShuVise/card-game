@@ -6,8 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import cards.Card;
-import cards.cardEntities.VasalCard;
-import cards.cardsBodies.Vasal;
+import cards.cardsBodies.Minion;
 import gameUtilities.Deck;
 import gameUtilities.Hand;
 import player.Player;
@@ -17,12 +16,12 @@ public class GameState implements GameStateInterface
 	public static int lowerHero = 0;
 	public static int upperHero = 1;
 	private Player[] hero = new Player[2];
-	private List<Vasal> heroesVasals = new ArrayList<Vasal>();
+	private List<Minion> minionsOnBoard = new ArrayList<Minion>();
 	private Map<Player,Hand> heroHand = new HashMap<Player,Hand>();
 	private Map<Player,Deck> heroDeck = new HashMap<Player,Deck>();
 	private int whosTurn = lowerHero;
 	private static GameState gameState = new GameState();
-	private int vasalIdNumer = 0;
+	private int minionIdNumer = 0;
 	public static GameState getGameState()
 	{
 		return gameState;
@@ -32,7 +31,7 @@ public class GameState implements GameStateInterface
 	{
 		hero[lowerHero] = null;
 		hero[upperHero] = null;
-		heroesVasals.clear();
+		minionsOnBoard.clear();
 	}
 	
 	public void addLowerHero(Player hero)
@@ -54,10 +53,10 @@ public class GameState implements GameStateInterface
 		return whosTurn;
 	}
 	
-	public void addVasalToField(Vasal vasal)
+	public void addVasalToField(Minion minion)
 	{
-		heroesVasals.add(vasal);
-		vasal.setMyId(vasalIdNumer++);
+		minionsOnBoard.add(minion);
+		minion.setMyId(minionIdNumer++);
 	}
 	
 	public void addCardToHand(Player player, Card card)
@@ -72,15 +71,14 @@ public class GameState implements GameStateInterface
 	
 	public Card getTopCardFromDeck(Player player)
 	{
-		System.out.println(heroDeck);
 		return heroDeck.get(player).drawCard();
 	}
 	
-	public Vasal getVasal(int vasalId)
+	public Minion getVasal(int minionId)
 	{
-		for(Vasal vasal : heroesVasals)
+		for(Minion minion : minionsOnBoard)
 		{
-			if(vasal.getMyId() == vasalId) return vasal;
+			if(minion.getMyId() == minionId) return minion;
 		}
 		return null;
 	}

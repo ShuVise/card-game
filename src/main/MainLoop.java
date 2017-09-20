@@ -5,13 +5,14 @@ import java.util.List;
 
 import cardCache.CardCache;
 import cards.cardAbilities.CardAbility;
+import cards.cardAbilities.CardAbilityInterface;
+import cards.cardAbilities.CardAbilityOnPlay;
 import cards.cardAbilities.CardAbilitySummonMinion;
 import cards.cardEntities.CardBuilder;
-import cards.cardsBodies.Vasal;
+import cards.cardsBodies.Minion;
 import gameState.GameState;
 import gameState.actions.*;
 import player.Player;
-import player.PlayerInterface;
 
 public class MainLoop implements Runnable
 {
@@ -50,37 +51,24 @@ public class MainLoop implements Runnable
 		actionList.add(new ShuffleCardToDeck(upperHero,cardCache.getCard("Izaro")));
 		actionList.add(new DrawCard(lowerHero));
 		actionList.add(new DrawCard(upperHero));
+		actionList.add(new DrawCard(lowerHero));
+	}
+	
+	private void addMinionToCardCache(String cardName, int minionHp)
+	{
+		List<CardAbility> cardAbilities = new ArrayList<CardAbility>();
+		Minion minion = new Minion(cardName,minionHp);
+		CardAbility summonMinion = new CardAbilitySummonMinion(minion);
+		CardAbilityOnPlay onPlay = new CardAbilityOnPlay(summonMinion);
+		cardAbilities.add(onPlay);
+		cardCache.addToCache(cardBuilder.buildCard(cardName,cardAbilities,"minion"));
 	}
 	
 	private void loadCards()
 	{
-		{
-			String cardName = "Ram";
-			int minionHp = 4;
-			List<CardAbility> cardAbilities = new ArrayList<CardAbility>();
-			Vasal vasal = new Vasal(cardName,minionHp);
-			CardAbility summonMinion = new CardAbilitySummonMinion(vasal);
-			cardAbilities.add(summonMinion);
-			cardCache.addToCache(cardBuilder.buildCard(cardName,cardAbilities,"minion"));
-		}
-		{
-			String cardName = "Rem";
-			int minionHp = 6;
-			List<CardAbility> cardAbilities = new ArrayList<CardAbility>();
-			Vasal vasal = new Vasal(cardName,minionHp);
-			CardAbility summonMinion = new CardAbilitySummonMinion(vasal);
-			cardAbilities.add(summonMinion);
-			cardCache.addToCache(cardBuilder.buildCard(cardName,cardAbilities,"minion"));
-		}
-		{
-			String cardName = "Izaro";
-			int minionHp = 12;
-			List<CardAbility> cardAbilities = new ArrayList<CardAbility>();
-			Vasal vasal = new Vasal(cardName,minionHp);
-			CardAbility summonMinion = new CardAbilitySummonMinion(vasal);
-			cardAbilities.add(summonMinion);
-			cardCache.addToCache(cardBuilder.buildCard(cardName,cardAbilities,"minion"));
-		}
+		addMinionToCardCache("Ram",4);
+		addMinionToCardCache("Rem",5);
+		addMinionToCardCache("Izaro",12);
 		System.out.println(cardCache);
 	}
 

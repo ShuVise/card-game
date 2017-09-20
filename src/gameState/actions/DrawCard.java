@@ -6,7 +6,6 @@ import player.Player;
 
 public class DrawCard implements Action
 {
-	
 	private Player player;
 	
 	public DrawCard(Player player)
@@ -20,5 +19,4 @@ public class DrawCard implements Action
 		System.out.println(player.getName() + " draws: " + card + '\n');
 		new AddCardToHand(player,card).execute();
 	}
-
 }

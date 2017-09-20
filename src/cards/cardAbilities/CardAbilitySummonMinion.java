@@ -14,7 +14,8 @@ public class CardAbilitySummonMinion extends CardAbility
 	
 	public void execute() 
 	{
-		minion.setOwner(card.getOwner());
+		System.out.println("Summoned minion: " + minion + " for " + owner.getName() + "\n");
+		minion.setOwner(owner);
 		GameState.getGameState().addVasalToField(minion);
 	}
 	

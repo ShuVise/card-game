@@ -1,6 +1,7 @@
 package cards.cardAbilities;
 
 import cards.Card;
+import player.Player;
 
 public class CardAbilityOnPlay extends CardAbility
 {
@@ -13,14 +14,13 @@ public class CardAbilityOnPlay extends CardAbility
 	@Override
 	public void registerAbility(Card card) 
 	{
-		System.out.println("Registering on play effect");
 		card.registerOnPlayEffect(cardAbility);
+		cardAbility.setCard(card);
 	}
 
 	@Override
 	public void execute() 
 	{
-		cardAbility.execute();
 		
 	}
 	

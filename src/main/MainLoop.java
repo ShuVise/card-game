@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cardCache.CardCache;
+import cards.Card;
 import cards.cardAbilities.CardAbility;
 import cards.cardAbilities.CardAbilityInterface;
 import cards.cardAbilities.CardAbilityOnPlay;
@@ -52,12 +53,16 @@ public class MainLoop implements Runnable
 		actionList.add(new DrawCard(lowerHero));
 		actionList.add(new DrawCard(upperHero));
 		actionList.add(new DrawCard(lowerHero));
+		actionList.add(new PlayCardFromHand(lowerHero,0));
+		actionList.add(new PlayCardFromHand(lowerHero,0));
+		actionList.add(new PlayCardFromHand(upperHero,0));
+		actionList.add(new DrawCard(lowerHero));
 	}
 	
-	private void addMinionToCardCache(String cardName, int minionHp)
+	private void addMinionToCardCache(String cardName, int minionAttack, int minionHp)
 	{
 		List<CardAbility> cardAbilities = new ArrayList<CardAbility>();
-		Minion minion = new Minion(cardName,minionHp);
+		Minion minion = new Minion(cardName,minionHp,minionAttack);
 		CardAbility summonMinion = new CardAbilitySummonMinion(minion);
 		CardAbilityOnPlay onPlay = new CardAbilityOnPlay(summonMinion);
 		cardAbilities.add(onPlay);
@@ -66,9 +71,9 @@ public class MainLoop implements Runnable
 	
 	private void loadCards()
 	{
-		addMinionToCardCache("Ram",4);
-		addMinionToCardCache("Rem",5);
-		addMinionToCardCache("Izaro",12);
+		addMinionToCardCache("Ram",3,4);
+		addMinionToCardCache("Rem",3,5);
+		addMinionToCardCache("Izaro",8,12);
 		System.out.println(cardCache);
 	}
 

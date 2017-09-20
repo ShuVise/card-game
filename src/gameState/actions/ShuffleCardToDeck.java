@@ -12,6 +12,8 @@ public class ShuffleCardToDeck implements Action
 	{
 		this.player = player;
 		this.card = card;
+		card.setOwner(player);
+		card.registerAbilities();
 	}
 	public void execute() 
 	{

@@ -4,20 +4,26 @@ import player.Player;
 
 public class Minion implements CardBodyInterface
 {
-	private int hp;
+	private int hp, attack;
 	private String name;
 	private int myId;
 	private Player owner;
-	public Minion(String name, int hp)
+	public Minion(String name, int hp, int attack)
 	{
 		this.name = name;
 		this.hp = hp;
+		this.attack = attack;
 		this.myId = 0;
 	}
 	
 	public void setOwner(Player player)
 	{
 		this.owner = player;
+	}
+	
+	public Player getOwner()
+	{
+		return owner;
 	}
 	
 	public String getName()
@@ -43,7 +49,7 @@ public class Minion implements CardBodyInterface
 	public String toString()
 	{
 		String output = new String();
-		output = name + " " + hp;
+		output = name + " " + hp + "/" + attack;
 		return output;
 	}
 }

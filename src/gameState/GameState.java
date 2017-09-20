@@ -64,6 +64,11 @@ public class GameState implements GameStateInterface
 		heroHand.get(player).addCardToHand(card);
 	}
 	
+	public void removeCardFromHand(Player player, Card card)
+	{
+		heroHand.get(player).removeCardFromHand(card);
+	}
+	
 	public void addCardToDeck(Player player, Card card)
 	{
 		heroDeck.get(player).shuffleCardToDeck(card);
@@ -72,6 +77,11 @@ public class GameState implements GameStateInterface
 	public Card getTopCardFromDeck(Player player)
 	{
 		return heroDeck.get(player).drawCard();
+	}
+	
+	public Card getCardFromHand(int index, Player player)
+	{
+		return heroHand.get(player).getCard(index);
 	}
 	
 	public Minion getVasal(int minionId)
@@ -87,10 +97,16 @@ public class GameState implements GameStateInterface
 	{
 		String output = new String();
 		//output += "It's " + hero[whosTurn].getName() + "'s turn";
-		for(int i = 0; i<hero.length;i++)
+		for(Player player : hero)
 		{
-			output+= hero[i].getName() + " has in hand: " + heroHand.get(hero[i]) + '\n';
-			output+= hero[i].getName() + " has in deck: " + heroDeck.get(hero[i]) + '\n';
+			output+= player.getName() + " has in hand: " + heroHand.get(player) + '\n';
+			output+= player.getName() + " has in deck: " + heroDeck.get(player) + '\n';
+			output+= player.getName() + " has on board:\n";
+			for(Minion minion : minionsOnBoard)
+			{
+				if(minion.getOwner()==player) output+= minion + "\n";
+			}
+			output += '\n';
 		}
 		return output;
 	}

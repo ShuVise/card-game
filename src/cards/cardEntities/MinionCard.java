@@ -13,12 +13,27 @@ public class MinionCard implements Card
 {
 	private String name;
 	private Player owner;
+	private List<List<CardAbility>> cardAbilities = new ArrayList<List<CardAbility>>();
 	private List<CardAbility> cardOnPlayEffects = new ArrayList<CardAbility>();
+	public MinionCard()
+	{
+		cardAbilities.add(cardOnPlayEffects);
+	}
 	public void addAbility(CardAbility ability)
 	{
 		ability.registerAbility(this);
 	}
-	
+	public void registerAbilities()
+	{
+		for(List<CardAbility> list : cardAbilities)
+		{
+			for(CardAbility ability : list)
+			{
+				System.out.println(ability);
+				ability.setOwner(owner);
+			}
+		}
+	}
 	public Card getCard()
 	{
 		return this;
@@ -61,11 +76,21 @@ public class MinionCard implements Card
 		return output;
 	}
 	
-	public void play(Player player) 
+	public void play() 
 	{
 		for(CardAbilityInterface ability : cardOnPlayEffects)
 		{
 			ability.execute();
 		}
+	}
+	
+	public Card clone()
+	{
+		MinionCard card = new MinionCard();
+		card.name = this.name;
+		card.owner = this.owner;
+		card.cardOnPlayEffects = new ArrayList(cardOnPlayEffects);
+		card.cardAbilities = new ArrayList(cardAbilities);
+		return card;
 	}
 }

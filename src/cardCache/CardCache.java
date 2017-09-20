@@ -13,7 +13,7 @@ public class CardCache
 	
 	public Card getCard(String name)
 	{
-		Card card = cardCache.get(name).getCard();
+		Card card = cardCache.get(name).getCard().clone();
 		return card;
 	}
 	

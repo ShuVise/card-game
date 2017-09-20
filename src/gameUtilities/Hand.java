@@ -19,6 +19,11 @@ public class Hand
 		hand.add(card);
 	}
 	
+	public Card getCard(int index)
+	{
+		return hand.get(index);
+	}
+	
 	public void removeCardFromHand(Card card)
 	{
 		hand.remove(card);

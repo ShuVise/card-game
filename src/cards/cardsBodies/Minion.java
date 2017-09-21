@@ -52,4 +52,19 @@ public class Minion implements CardBodyInterface
 		output = name + " " + hp + "/" + attack;
 		return output;
 	}
+
+	private void checkIfAlive()
+	{
+		if(hp <= 0)
+		{
+			System.out.println(name + " has died!");
+		}
+	}
+	
+	@Override
+	public void inflictDamage(int damage)
+	{
+		hp-=damage;
+		checkIfAlive();
+	}
 }

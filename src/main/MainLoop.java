@@ -1,14 +1,15 @@
 package main;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import cardCache.CardCache;
 import cards.Card;
 import cards.cardAbilities.CardAbility;
 import cards.cardAbilities.CardAbilityInterface;
-import cards.cardAbilities.CardAbilityOnPlay;
 import cards.cardAbilities.CardAbilitySummonMinion;
+import cards.cardAbilitiesOccurence.CardAbilityOnPlay;
 import cards.cardEntities.CardBuilder;
 import cards.cardsBodies.Minion;
 import gameState.GameState;
@@ -22,8 +23,6 @@ public class MainLoop implements Runnable
 	private CardBuilder cardBuilder;
 	private boolean isOpen = true;
 	private List <Action> actionList;
-	
-	
 	public MainLoop()
 	{
 		gameState = GameState.getGameState();
@@ -43,7 +42,9 @@ public class MainLoop implements Runnable
 		lowerHero = new Player();
 		upperHero = new Player();
 		lowerHero.setName("Valerian");
+		lowerHero.setHp(30);
 		upperHero.setName("Ronen");
+		upperHero.setHp(30);
 		actionList.add(new PrepareGame(lowerHero,upperHero));
 		actionList.add(new ShuffleCardToDeck(lowerHero,cardCache.getCard("Ram")));
 		actionList.add(new ShuffleCardToDeck(lowerHero,cardCache.getCard("Rem")));
@@ -59,21 +60,21 @@ public class MainLoop implements Runnable
 		actionList.add(new DrawCard(lowerHero));
 	}
 	
-	private void addMinionToCardCache(String cardName, int minionAttack, int minionHp)
-	{
-		List<CardAbility> cardAbilities = new ArrayList<CardAbility>();
-		Minion minion = new Minion(cardName,minionHp,minionAttack);
-		CardAbility summonMinion = new CardAbilitySummonMinion(minion);
-		CardAbilityOnPlay onPlay = new CardAbilityOnPlay(summonMinion);
-		cardAbilities.add(onPlay);
-		cardCache.addToCache(cardBuilder.buildCard(cardName,cardAbilities,"minion"));
-	}
-	
 	private void loadCards()
 	{
-		addMinionToCardCache("Ram",3,4);
-		addMinionToCardCache("Rem",3,5);
-		addMinionToCardCache("Izaro",8,12);
+		List <String> properties = new ArrayList<String>();
+		properties.addAll(Arrays.asList("Rem","minion","3","4","3"));
+		cardCache.addToCache(cardBuilder.buildCard(properties));
+		properties.clear();
+		properties.addAll(Arrays.asList("Ram","minion","3","5","3"));
+		cardCache.addToCache(cardBuilder.buildCard(properties));
+		properties.clear();
+		properties.addAll(Arrays.asList("Izaro","minion","8","12","8"));
+		cardCache.addToCache(cardBuilder.buildCard(properties));
+		properties.clear();
+		properties.addAll(Arrays.asList("Archer","minion","3","4","3"));
+		cardCache.addToCache(cardBuilder.buildCard(properties));
+		properties.clear();
 		System.out.println(cardCache);
 	}
 

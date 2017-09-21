@@ -1,6 +1,5 @@
 package cards.cardAbilities;
 
-import cards.Card;
 import cards.cardsBodies.Minion;
 import gameState.GameState;
 
@@ -24,5 +23,11 @@ public class CardAbilitySummonMinion extends CardAbility
 		String output = new String();
 		output+= minion;
 		return output;
+	}
+
+	@Override
+	public void setParameters(String parameters) 
+	{
+		
 	}
 }

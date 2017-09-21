@@ -41,6 +41,15 @@ public class GameState implements GameStateInterface
 		heroDeck.put(hero, new Deck());
 	}
 	
+	public Player getLowerHero()
+	{
+		return hero[lowerHero];
+	}
+	
+	public Player getUpperHero()
+	{
+		return hero[upperHero];
+	}
 	public void addUpperHero(Player hero)
 	{
 		this.hero[upperHero] = hero;

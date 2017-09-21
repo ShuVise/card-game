@@ -27,4 +27,8 @@ public abstract class CardAbility implements CardAbilityInterface
 		
 	}
 	
+	public CardAbility clone()
+	{
+		return null;
+	}
 }

@@ -5,13 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import cardCache.CardCache;
-import cards.Card;
-import cards.cardAbilities.CardAbility;
-import cards.cardAbilities.CardAbilityInterface;
-import cards.cardAbilities.CardAbilitySummonMinion;
-import cards.cardAbilitiesOccurence.CardAbilityOnPlay;
 import cards.cardEntities.CardBuilder;
-import cards.cardsBodies.Minion;
 import gameState.GameState;
 import gameState.actions.*;
 import player.Player;
@@ -49,8 +43,8 @@ public class MainLoop implements Runnable
 		actionList.add(new ShuffleCardToDeck(lowerHero,cardCache.getCard("Ram")));
 		actionList.add(new ShuffleCardToDeck(lowerHero,cardCache.getCard("Rem")));
 		actionList.add(new ShuffleCardToDeck(lowerHero,cardCache.getCard("Ram")));
-		actionList.add(new ShuffleCardToDeck(upperHero,cardCache.getCard("Izaro")));
-		actionList.add(new ShuffleCardToDeck(upperHero,cardCache.getCard("Izaro")));
+		actionList.add(new ShuffleCardToDeck(upperHero,cardCache.getCard("Archer")));
+		actionList.add(new ShuffleCardToDeck(upperHero,cardCache.getCard("Archer")));
 		actionList.add(new DrawCard(lowerHero));
 		actionList.add(new DrawCard(upperHero));
 		actionList.add(new DrawCard(lowerHero));
@@ -72,7 +66,7 @@ public class MainLoop implements Runnable
 		properties.addAll(Arrays.asList("Izaro","minion","8","12","8"));
 		cardCache.addToCache(cardBuilder.buildCard(properties));
 		properties.clear();
-		properties.addAll(Arrays.asList("Archer","minion","3","4","3"));
+		properties.addAll(Arrays.asList("Archer","minion","1","1","1","DealDamage#3|On play"));
 		cardCache.addToCache(cardBuilder.buildCard(properties));
 		properties.clear();
 		System.out.println(cardCache);

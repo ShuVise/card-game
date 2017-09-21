@@ -12,7 +12,7 @@ public class CardAbilityDealDamage extends CardAbility
 	private void setTarget()
 	{
 		CardBodyInterface target = null;
-		target = GameState.getGameState().getUpperHero();
+		target = GameState.getGameState().getLowerHero();
 		this.target = target;
 	}
 	

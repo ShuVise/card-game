@@ -51,6 +51,8 @@ public class Player implements PlayerInterface, CardBodyInterface
 	public void inflictDamage(int damage) 
 	{
 		hp-=damage;
+		System.out.println("Deatl damage " + damage + " to " + name);
 		checkIfAlive();
+		
 	}
 }

@@ -1,5 +1,7 @@
 package cards.cardAbilitiesOccurence;
 
+import java.lang.reflect.InvocationTargetException;
+
 import cards.cardAbilities.CardAbility;
 
 public abstract class CardAbilityOccurence implements CardAbilityOccurenceInterface
@@ -18,6 +20,12 @@ public abstract class CardAbilityOccurence implements CardAbilityOccurenceInterf
 	
 	public CardAbilityOccurence clone()
 	{
+		try {
+			return getClass().getDeclaredConstructor().newInstance();
+		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
+				| NoSuchMethodException | SecurityException e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 }

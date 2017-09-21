@@ -108,6 +108,7 @@ public class GameState implements GameStateInterface
 		//output += "It's " + hero[whosTurn].getName() + "'s turn";
 		for(Player player : hero)
 		{
+			output+= player + "\n\n";
 			output+= player.getName() + " has in hand: " + heroHand.get(player) + '\n';
 			output+= player.getName() + " has in deck: " + heroDeck.get(player) + '\n';
 			output+= player.getName() + " has on board:\n";

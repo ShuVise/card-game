@@ -67,9 +67,12 @@ public class CardBuilder
 				ability = abilityString.substring(0, abilityString.indexOf('#'));
 				parameters = abilityString.substring(abilityString.indexOf('#')+1, abilityString.indexOf('|'));
 				occurence = abilityString.substring(abilityString.indexOf('|')+1, abilityString.length());
+				System.out.println(ability);
+				System.out.println(parameters);
+				System.out.println(occurence);
 				CardAbility abilityObject = abilityHash.get(ability).clone();
 				CardAbilityOccurence occurenceObject = (CardAbilityOccurence) occurenceHash.get(occurence).clone();
-				occurenceObject.setParameters(parameters);
+				abilityObject .setParameters(parameters);
 				occurenceObject.setAbility(abilityObject);
 				occurenceObject.addAbilityToCard(minionCard);
 			}

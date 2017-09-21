@@ -1,5 +1,6 @@
 package main;
 
+import java.awt.EventQueue;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -8,10 +9,12 @@ import cardCache.CardCache;
 import cards.cardEntities.CardBuilder;
 import gameState.GameState;
 import gameState.actions.*;
+import guiEngine.GameMainWindow;
 import player.Player;
 
 public class MainLoop implements Runnable
 {
+	private GameMainWindow gameWindow = null;
 	private GameState gameState;
 	private CardCache cardCache;
 	private CardBuilder cardBuilder;
@@ -27,6 +30,7 @@ public class MainLoop implements Runnable
 		prepareGameState();
 		Action action = new ShowGameState(gameState);
 		actionList.add(action);
+		gameWindow = new GameMainWindow();
 		new Thread(this).start();
 	}
 	
@@ -74,7 +78,7 @@ public class MainLoop implements Runnable
 
 	@Override
 	public void run() 
-	{
+	{	
 		Action action = null;
 		while(isOpen)
 		{

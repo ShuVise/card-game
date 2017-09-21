@@ -1,6 +1,7 @@
 package cards.cardEntities;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Hashtable;
 import java.util.List;
 
@@ -23,7 +24,15 @@ import cards.cardsBodies.Minion;
  * 3 - hp
  * 4 - mana cost
  * 5 and lower - abilities 
- * Ability structure: Name of ability # parameters | when proced
+ * Ability structure: Name of ability # parameters devided by ,| when proced
+ * Example:
+ * Arrays.asList("Archer","minion","1","1","1","DealDamageTwoTimes#3,1|On play")
+ * name: Archer
+ * type: minion
+ * attack: 1
+ * hp: 1
+ * mana cost: 1
+ * Ability: On play: dead 3 damage to target and then 1 damage to target //DealDamageTwoTimes is not implemented yet
  */
 public class CardBuilder 
 {

@@ -16,7 +16,8 @@ public class GamePanel extends JPanel implements Runnable, KeyListener, MouseLis
 	public static final int HEIGHT = 300;
 	public static final int WIDTH = 300;
 	public static final int scale = 2;
-	
+	public static final int cardInHandWidth = 45;
+	public static final int cardInHandHeight = 65;
 	private Thread thread;
 	private boolean running;
 	private int FPS = 60;
@@ -36,6 +37,16 @@ public class GamePanel extends JPanel implements Runnable, KeyListener, MouseLis
 		requestFocus();
 	}
 
+	
+	public static int getMyWidth()
+	{
+		return WIDTH*scale;
+	}
+	
+	public static int getMyHeight()
+	{
+		return HEIGHT*scale;
+	}
 	
 	private void init()
 	{

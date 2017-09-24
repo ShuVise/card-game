@@ -19,10 +19,11 @@ public class MenuState extends WindowState
 	public MenuState(WindowStateManager wsm)
 	{
 		super();
+		this.setSize(GamePanel.getMyWidth(),GamePanel.getMyHeight());
 		setLayout(null);
 		this.wsm = wsm;
 		Button play = new Button("Play!", this, playButton);
-		play.setPosition(300, 300);
+		play.setPosition((int)(GamePanel.getMyWidth()/2), (int)(GamePanel.getMyHeight()/2));
 		buttons = new ArrayList<Button>();
 		buttons.add(play);
 		add(play);
@@ -73,13 +74,10 @@ public class MenuState extends WindowState
 	@Override
 	public void mousePressed(MouseEvent e) 
 	{
-		for(Component c : getComponents())
+		Component c = getComponentAt(e.getPoint());
+		if(c instanceof Button)
 		{
-			if(c.getBounds().contains(e.getPoint()))
-			if(c instanceof Button)
-			{
-				((Button) c).pressed();;
-			}
+			((Button) c).pressed();
 		}
 	}
 	@Override

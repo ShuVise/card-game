@@ -93,6 +93,11 @@ public class GameState implements GameStateInterface
 		return heroHand.get(player).getCard(index);
 	}
 	
+	public Hand getLowerHand()
+	{
+		return heroHand.get(hero[lowerHero]);
+	}
+	
 	public Minion getVasal(int minionId)
 	{
 		for(Minion minion : minionsOnBoard)

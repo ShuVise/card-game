@@ -39,4 +39,9 @@ public class Hand
 		}
 		return output;
 	}
+	
+	public List<Card> getCards()
+	{
+		return this.hand;
+	}
 }

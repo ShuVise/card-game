@@ -15,11 +15,11 @@ import player.Player;
 public class MainLoop implements Runnable
 {
 	private GameMainWindow gameWindow = null;
-	private GameState gameState;
+	public static GameState gameState;
 	private CardCache cardCache;
 	private CardBuilder cardBuilder;
 	private boolean isOpen = true;
-	private List <Action> actionList;
+	private static List <Action> actionList;
 	public MainLoop()
 	{
 		gameState = GameState.getGameState();
@@ -47,6 +47,8 @@ public class MainLoop implements Runnable
 		actionList.add(new ShuffleCardToDeck(lowerHero,cardCache.getCard("Ram")));
 		actionList.add(new ShuffleCardToDeck(lowerHero,cardCache.getCard("Rem")));
 		actionList.add(new ShuffleCardToDeck(lowerHero,cardCache.getCard("Ram")));
+		actionList.add(new ShuffleCardToDeck(lowerHero,cardCache.getCard("Archer")));
+		actionList.add(new ShuffleCardToDeck(lowerHero,cardCache.getCard("Izaro")));
 		actionList.add(new ShuffleCardToDeck(upperHero,cardCache.getCard("Archer")));
 		actionList.add(new ShuffleCardToDeck(upperHero,cardCache.getCard("Archer")));
 		actionList.add(new DrawCard(lowerHero));
@@ -55,6 +57,8 @@ public class MainLoop implements Runnable
 		actionList.add(new PlayCardFromHand(lowerHero,0));
 		actionList.add(new PlayCardFromHand(lowerHero,0));
 		actionList.add(new PlayCardFromHand(upperHero,0));
+		actionList.add(new DrawCard(lowerHero));
+		//actionList.add(new DrawCard(upperHero));
 		actionList.add(new DrawCard(lowerHero));
 	}
 	
@@ -76,18 +80,21 @@ public class MainLoop implements Runnable
 		System.out.println(cardCache);
 	}
 
+	public static void addAction(Action action)
+	{
+		System.out.println("Added action");
+		actionList.add(action);
+	}
+	
 	@Override
 	public void run() 
 	{	
 		Action action = null;
 		while(isOpen)
 		{
-			if(actionList.size()==0)
+			if(actionList.size()>0)
 			{
-				isOpen = false;
-			}
-			else
-			{
+				System.out.println("Executing action");
 				action = actionList.get(0);
 				actionList.remove(0);
 				action.execute();

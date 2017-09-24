@@ -6,31 +6,46 @@ import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import gameState.GameState;
+import gameState.GameStateView;
+import gameState.actions.DrawCard;
 import guiEngine.GamePanel;
 import guiEngine.guiUtilities.Button;
+import main.MainLoop;
 
 public class PlayState extends WindowState
 {
+	private static GameState gameState = MainLoop.gameState;
+	private static GameStateView gsv = new GameStateView(gameState);
 	private final static int menuButton = 0;
+	private final static int drawCard = 1;
+	private Map <Integer,Button> buttons = new HashMap<Integer,Button>();
 	public PlayState(WindowStateManager wsm)
 	{
 		super();
+		this.setSize(GamePanel.getMyWidth(),GamePanel.getMyHeight());
 		this.wsm = wsm;
 		setLayout(null);
 		this.wsm = wsm;
-		Button play = new Button("go to menu!", this, menuButton);
-		play.setPosition(300, 300);
-		buttons = new ArrayList<Button>();
-		buttons.add(play);
-		add(play);
+		Button menu = new Button("go to menu!", this, menuButton);
+		buttons.put(new Integer(menuButton),menu);
+		menu.setPosition((int)(GamePanel.getMyWidth()*0.9), (int)(GamePanel.getMyHeight()*0.98));
+		//buttons = new ArrayList<Button>();
+		//buttons.add(play);
+		add(menu);
+		Button getCard = new Button("draw a card!", this, drawCard);
+		buttons.put(new Integer(drawCard), getCard);
+		getCard.setPosition((int)(GamePanel.getMyWidth()*0.9), (int)(GamePanel.getMyHeight()*0.9));
+		add(getCard);
 	}
 	@Override
 	public void update() 
 	{
-		// TODO Auto-generated method stub
-		
+		gsv.update();
 	}
 
 	@Override
@@ -46,6 +61,7 @@ public class PlayState extends WindowState
 				((Button) c).draw(g);
 			}
 		}
+		gsv.draw(g);
 	}
 
 	@Override
@@ -71,15 +87,11 @@ public class PlayState extends WindowState
 	@Override
 	public void mousePressed(MouseEvent e) 
 	{
-		for(Component c : getComponents())
+		Component c = getComponentAt(e.getPoint());
+		if(c instanceof Button)
 		{
-			if(c.getBounds().contains(e.getPoint()))
-			if(c instanceof Button)
-			{
-				((Button) c).pressed();;
-			}
+			((Button) c).pressed();
 		}
-		
 	}
 	@Override
 	public void mouseReleased(MouseEvent e) {
@@ -93,6 +105,9 @@ public class PlayState extends WindowState
 		{
 			wsm.setState(WindowStateManager.menuState);
 		}
-		
+		else if(ID == drawCard )
+		{
+			MainLoop.addAction(new DrawCard(gameState.getUpperHero()));
+		}
 	}
 }

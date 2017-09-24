@@ -107,7 +107,7 @@ public class PlayState extends WindowState
 		}
 		else if(ID == drawCard )
 		{
-			MainLoop.addAction(new DrawCard(gameState.getUpperHero()));
+			MainLoop.addAction(new DrawCard(gameState.getLowerHero()));
 		}
 	}
 }

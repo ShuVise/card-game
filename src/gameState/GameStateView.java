@@ -29,7 +29,7 @@ public class GameStateView
 		cards = gameState.getLowerHand().getCards();
 		noCards = cards.size();
 		middle = GamePanel.getMyWidth()/2;
-		leftSide = -(noCards/2)*GamePanel.cardInHandWidth;
+		leftSide = (int) (-(noCards/2.0)*GamePanel.cardInHandWidth);
 	}
 	
 	public void draw(Graphics2D g)

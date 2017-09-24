@@ -18,6 +18,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener, MouseLis
 	public static final int scale = 2;
 	public static final int cardInHandWidth = 45;
 	public static final int cardInHandHeight = 65;
+	public static final int cardInHandGap = 3;
 	private Thread thread;
 	private boolean running;
 	private int FPS = 60;

@@ -29,7 +29,7 @@ public class GameStateView
 		cards = gameState.getLowerHand().getCards();
 		noCards = cards.size();
 		middle = GamePanel.getMyWidth()/2;
-		leftSide = (int) (-(noCards/2.0)*GamePanel.cardInHandWidth);
+		leftSide = (int) (-(noCards/2.0)*GamePanel.cardInHandWidth - ((noCards-1)/2.0)*GamePanel.cardInHandGap);
 	}
 	
 	public void draw(Graphics2D g)
@@ -40,7 +40,7 @@ public class GameStateView
 		for(Card card : cards)
 		{
 			g.setColor(Color.BLACK);
-			int x = middle+leftSide + iterator*GamePanel.cardInHandWidth;
+			int x = middle+leftSide + iterator*GamePanel.cardInHandWidth + GamePanel.cardInHandGap*iterator;
 			int y = GamePanel.getMyHeight()-GamePanel.cardInHandHeight;
 			g.drawRect(x, y, GamePanel.cardInHandWidth, GamePanel.cardInHandHeight - 10);
 			int stringWidth = g.getFontMetrics(cardNameFont).stringWidth(card.getName());

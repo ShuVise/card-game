@@ -1,15 +1,21 @@
 package guiEngine.guiUtilities;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.font.FontRenderContext;
 import java.awt.geom.AffineTransform;
 
+import cards.cardsBodies.CardBodyInterface;
 import cards.cardsBodies.Minion;
+import gameState.actions.InflictDamage;
+import guiEngine.BodyGUI;
 import guiEngine.GamePanel;
+import main.MainLoop;
 
-public class MinionGUI extends GUIUtility
+public class MinionGUI extends BodyGUI
 {
 
 	private Minion minion = null;
@@ -38,11 +44,32 @@ public class MinionGUI extends GUIUtility
 		stringY = (int) (y+height/2.0 + (minionNameFont.getStringBounds(minion.getName(), frc).getHeight())/4.0); 
 	}
 	
+	public CardBodyInterface getBody()
+	{
+		return minion;
+	}
+	
+	public String getName()
+	{
+		return minion.getName();
+	}
+	
+	public Point getCenter()
+	{
+		return new Point((int)(x+width*0.5),(int)(y+height*0.5));
+	}
+	
 	public void draw(Graphics2D g)
 	{
+		g.setColor(Color.LIGHT_GRAY);
+		g.fillArc(x, y, width, height, 0, 360);
+		g.setColor(Color.black);
 		g.drawArc(x, y, width, height, 0, 360);
 		g.setFont(minionNameFont);
 		g.drawString(minion.getName(), stringX, stringY);
+		int hp = minion.getHP();
+		int attack = minion.getAttack();
+		g.drawString(new String("Hp: " + Integer.toString(hp)), (int) (x+width*0.6), (int)(y+height*0.9));
 	}
 	
 	@Override

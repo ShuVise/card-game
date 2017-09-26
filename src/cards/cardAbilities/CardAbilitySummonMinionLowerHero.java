@@ -4,10 +4,10 @@ import cards.cardsBodies.Minion;
 import gameState.GameState;
 import gameUtilities.boardPcg.Board;
 
-public class CardAbilitySummonMinion extends CardAbility
+public class CardAbilitySummonMinionLowerHero extends CardAbility
 {
 	private Minion minion;
-	public CardAbilitySummonMinion(Minion minion)
+	public CardAbilitySummonMinionLowerHero(Minion minion)
 	{
 		this.minion = minion;
 	}
@@ -15,7 +15,7 @@ public class CardAbilitySummonMinion extends CardAbility
 	public void execute() 
 	{
 		System.out.println("Summoned minion: " + minion + " for " + owner.getName() + "\n");
-		minion.setOwner(owner);
+		minion.setOwner(GameState.getGameState().getLowerHero());
 		GameState.getGameState().addVasalToField(minion);
 		Board.getInstance().addMinionToBoard(minion);
 	}

@@ -9,7 +9,7 @@ import cards.Card;
 import cards.cardAbilities.CardAbility;
 import cards.cardAbilities.CardAbilityDealDamage;
 import cards.cardAbilities.CardAbilityInterface;
-import cards.cardAbilities.CardAbilitySummonMinion;
+import cards.cardAbilities.CardAbilitySummonMinionLowerHero;
 import cards.cardAbilitiesOccurence.CardAbilityOccurence;
 import cards.cardAbilitiesOccurence.CardAbilityOccurenceInterface;
 import cards.cardAbilitiesOccurence.CardAbilityOnPlay;
@@ -64,7 +64,7 @@ public class CardBuilder
 			int manaCost = Integer.parseInt(properties.get(4));
 			Minion minion = new Minion(name,minionHp,minionAttack);
 			{
-				CardAbility abilityObject = new CardAbilitySummonMinion(minion);
+				CardAbility abilityObject = new CardAbilitySummonMinionLowerHero(minion);
 				CardAbilityOccurence occurenceObject = new CardAbilityOnPlay();
 				occurenceObject.setAbility(abilityObject);
 				occurenceObject.addAbilityToCard(minionCard);

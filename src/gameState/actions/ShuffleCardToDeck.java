@@ -1,6 +1,7 @@
 package gameState.actions;
 
 import cards.Card;
+import cards.cardAbilities.CardAbility;
 import gameState.GameState;
 import player.Player;
 
@@ -19,6 +20,11 @@ public class ShuffleCardToDeck implements Action
 	{
 		System.out.println("Shuffling card " + card + " to " + player.getName() + "'s deck\n");
 		GameState.getGameState().addCardToDeck(player, card);
+	}
+	@Override
+	public void registerAbility(CardAbility ability) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

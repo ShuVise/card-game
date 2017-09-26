@@ -17,11 +17,12 @@ public class HandLowerGUI extends GUIUtility
 {
 	private List <CardGUI> hand = null;
 	private static HandLowerGUI thisInstance = new HandLowerGUI();
-	private Semaphore handSemaphore = new Semaphore(1);
+	private Semaphore handSemaphore = new Semaphore(0);
 	private HandLowerGUI()
 	{
 		super();
 		hand = new ArrayList<CardGUI>();
+		handSemaphore.release();
 		setBounds(0,0,1,1);
 	}
 	

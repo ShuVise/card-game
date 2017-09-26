@@ -20,7 +20,9 @@ public class WindowStateManager
 		gameStates = new ArrayList<WindowState>();
 		currentState = menuState;
 		gameStates.add(new MenuState(this));
-		gameStates.add(new PlayState(this));
+		PlayState pState = PlayState.getInstance();
+		pState.init(this);
+		gameStates.add(pState);
 		
 	}
 	

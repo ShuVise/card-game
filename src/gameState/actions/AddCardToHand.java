@@ -1,6 +1,7 @@
 package gameState.actions;
 
 import cards.Card;
+import cards.cardAbilities.CardAbility;
 import gameState.GameState;
 import player.Player;
 
@@ -17,6 +18,11 @@ public class AddCardToHand implements Action
 	{
 		System.out.println("Adding card " + card + " to " + player.getName() + "'s hand\n");
 		GameState.getGameState().addCardToHand(player, card);
+	}
+	@Override
+	public void registerAbility(CardAbility ability) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

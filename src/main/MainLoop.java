@@ -54,14 +54,11 @@ public class MainLoop implements Runnable
 		actionList.add(new PrepareGame(lowerHero,upperHero));
 		actionList.add(new ShuffleCardToDeck(lowerHero,cardCache.getCard("Ram")));
 		actionList.add(new ShuffleCardToDeck(lowerHero,cardCache.getCard("Rem")));
-		actionList.add(new ShuffleCardToDeck(lowerHero,cardCache.getCard("Ram")));
 		actionList.add(new ShuffleCardToDeck(lowerHero,cardCache.getCard("Archer")));
-		actionList.add(new ShuffleCardToDeck(lowerHero,cardCache.getCard("Izaro")));
-		actionList.add(new ShuffleCardToDeck(upperHero,cardCache.getCard("Archer")));
-		actionList.add(new ShuffleCardToDeck(upperHero,cardCache.getCard("Archer")));
-		actionList.add(new DrawCard(lowerHero));
-		actionList.add(new DrawCard(upperHero));
-		actionList.add(new DrawCard(lowerHero));
+		actionList.add(new ShuffleCardToDeck(lowerHero,cardCache.getCard("Archer")));
+		actionList.add(new ShuffleCardToDeck(lowerHero,cardCache.getCard("Archer")));
+		actionList.add(new ShuffleCardToDeck(upperHero,cardCache.getCard("Ram")));
+		actionList.add(new ShuffleCardToDeck(upperHero,cardCache.getCard("Rem")));
 	}
 	
 	private void loadCards()

@@ -1,6 +1,7 @@
 package gameState.actions;
 
 import cards.Card;
+import cards.cardAbilities.CardAbility;
 import gameState.GameState;
 import gameState.actions.actionExceptions.NoCardsInDeckException;
 import guiEngine.guiUtilities.HandLowerGUI;
@@ -23,6 +24,12 @@ public class LowerHeroDrawCard implements Action
 		Card card = GameState.getGameState().getTopCardFromDeck(player);
 		new AddCardToHand(player,card).execute();
 		HandLowerGUI.getInstance().addCardToHand(card);
+	}
+
+	@Override
+	public void registerAbility(CardAbility ability) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

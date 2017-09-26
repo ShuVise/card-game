@@ -1,6 +1,7 @@
 package gameState.actions;
 
 import player.Player;
+import cards.cardAbilities.CardAbility;
 import gameState.GameState;
 
 public class PrepareGame implements Action
@@ -16,6 +17,11 @@ public class PrepareGame implements Action
 		GameState gameState = GameState.getGameState();
 		gameState.addLowerHero(playerOne);
 		gameState.addUpperHero(playerTwo);
+	}
+	@Override
+	public void registerAbility(CardAbility ability) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

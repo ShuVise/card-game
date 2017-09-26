@@ -13,7 +13,7 @@ import java.util.concurrent.Semaphore;
 import javax.swing.JPanel;
 
 import cards.Card;
-import gameState.actions.PlayCardFromHand;
+import gameState.actions.PlayCardFromHandLowerHero;
 import guiEngine.GamePanel;
 import guiEngine.gameWindowStates.PlayState;
 import main.MainLoop;
@@ -125,7 +125,7 @@ public class CardGUI extends GUIUtility
 			if(dy<-GamePanel.cardInHandHeight*1.7)
 			{
 				System.out.println("Hi");
-				MainLoop.addAction(new PlayCardFromHand(card));
+				MainLoop.addAction(new PlayCardFromHandLowerHero(card));
 			}
 			dx = 0;
 			dy = 0;

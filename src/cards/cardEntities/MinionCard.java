@@ -7,6 +7,7 @@ import cards.Card;
 import cards.cardAbilities.CardAbility;
 import cards.cardAbilities.CardAbilityInterface;
 import gameState.GameState;
+import guiEngine.guiUtilities.MinionGUI;
 import player.Player;
 
 public class MinionCard implements Card
@@ -15,9 +16,16 @@ public class MinionCard implements Card
 	private Player owner;
 	private List<List<CardAbility>> cardAbilities = new ArrayList<List<CardAbility>>();
 	private List<CardAbility> cardOnPlayEffects = new ArrayList<CardAbility>();
+	
+	private MinionGUI parent = null;
 	public MinionCard()
 	{
 		cardAbilities.add(cardOnPlayEffects);
+	}
+	
+	public void setParent(MinionGUI parent)
+	{
+		this.parent = parent;
 	}
 	public void addAbility(CardAbility ability)
 	{
@@ -80,6 +88,7 @@ public class MinionCard implements Card
 	{
 		for(CardAbilityInterface ability : cardOnPlayEffects)
 		{
+			System.out.println(ability);
 			ability.execute();
 		}
 	}

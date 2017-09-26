@@ -1,6 +1,7 @@
 package gameUtilities.boardPcg;
 
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.Shape;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -8,12 +9,14 @@ import java.util.List;
 
 import cards.cardsBodies.Minion;
 import gameState.GameState;
+import guiEngine.BodyGUI;
 import guiEngine.GamePanel;
 import guiEngine.guiUtilities.GUIUtility;
 import guiEngine.guiUtilities.MinionGUI;
 import player.Player;
 
 import java.awt.Color;
+import java.awt.Component;
 
 public class Board extends GUIUtility
 {
@@ -83,6 +86,7 @@ public class Board extends GUIUtility
 		cords[arcNo][3] = (int)(GamePanel.getMyHeight()*(newHeight*2));// Wysokosc - 0.1, calosc 0.27, polowa 0.135 0.17 - 0.135 = 0.135
 		cords[arcNo][4] = 0;
 		cords[arcNo][5] = 180;	
+		setBounds(0,0,GamePanel.getMyWidth(),GamePanel.getMyHeight());
 	}
 	
 	public static Board getInstance()
@@ -107,6 +111,19 @@ public class Board extends GUIUtility
 			}
 		}
 		add(newMinion);
+	}
+	
+	public BodyGUI getBodyAt(MouseEvent e)
+	{
+		System.out.println("Hi33");
+		Component c = getComponentAt(e.getPoint());
+		BodyGUI body = null;
+		if(c instanceof BodyGUI)
+		{
+			body = (BodyGUI) c;
+			System.out.println(body.getName() + " Targeted");
+		}
+		return body;
 	}
 	
 	@Override

@@ -9,17 +9,20 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Semaphore;
 
 import gameState.GameState;
 import gameState.GameStateView;
 import gameState.actions.DrawCard;
 import gameState.actions.LowerHeroDrawCard;
 import gameUtilities.boardPcg.Board;
+import guiEngine.BodyGUI;
 import guiEngine.GamePanel;
 import guiEngine.guiUtilities.Button;
 import guiEngine.guiUtilities.CardGUI;
 import guiEngine.guiUtilities.GUIUtility;
 import guiEngine.guiUtilities.HandLowerGUI;
+import guiEngine.guiUtilities.Targeting;
 import main.MainLoop;
 
 public class PlayState extends WindowState
@@ -29,12 +32,25 @@ public class PlayState extends WindowState
 	private final static int menuButton = 0;
 	private final static int drawCard = 1;
 	private Map <Integer,Button> buttons = new HashMap<Integer,Button>();
+	private Semaphore targetingOnSem = new Semaphore(1);
+	private boolean targetingOn = false;
+	private Targeting targeting = null;
 	public static GUIUtility onMouse = null;
 	private Board board = Board.getInstance();
+	private static PlayState Instance = new PlayState();
 	
-	public PlayState(WindowStateManager wsm)
+	public static PlayState getInstance()
+	{
+		return Instance;
+	}
+	
+	private PlayState()
 	{
 		super();
+	}
+	
+	public void init(WindowStateManager wsm)
+	{
 		this.setSize(GamePanel.getMyWidth(),GamePanel.getMyHeight());
 		this.wsm = wsm;
 		setLayout(null);
@@ -51,6 +67,29 @@ public class PlayState extends WindowState
 		add(getCard);
 		add(HandLowerGUI.getInstance());
 		add(board);
+	}
+	public void startTargeting(Targeting targeting2)
+	{
+		try {
+			targetingOnSem.acquire();
+			targetingOn = true;
+			targeting = targeting2;
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		targetingOnSem.release();
+	}
+	
+	public void endTargeting()
+	{
+		targetingOn = false;
+		targeting = null;
+	}
+	
+	public BodyGUI getTargetAt(MouseEvent e)
+	{
+		 return board.getBodyAt(e);
 	}
 	
 	@Override
@@ -78,6 +117,20 @@ public class PlayState extends WindowState
 		{
 			if(onMouse instanceof CardGUI)
 			((CardGUI) onMouse).drawOnMouse(g);
+		}
+		try {
+			targetingOnSem.acquire();
+			if(targetingOn)
+			{
+				targeting.draw(g);
+			}
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		finally
+		{
+			targetingOnSem.release();
 		}
 	}
 
@@ -109,6 +162,17 @@ public class PlayState extends WindowState
 		{
 			((GUIUtility) c).mousePressed(e);
 		}
+		try {
+			targetingOnSem.acquire();
+			if(targetingOn)
+			{
+				targeting.mousePressed(e);
+			}
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		targetingOnSem.release();
 	}
 	@Override
 	public void mouseReleased(MouseEvent e) 
@@ -117,6 +181,17 @@ public class PlayState extends WindowState
 		{
 			((CardGUI) onMouse).mouseReleased(e);
 		}
+		try {
+			targetingOnSem.acquire();
+			if(targetingOn)
+			{
+				targeting.mouseReleased(e);
+			}
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		targetingOnSem.release();
 		onMouse = null;
 	}
 	
@@ -136,7 +211,17 @@ public class PlayState extends WindowState
 	@Override
 	public void mouseMoved(MouseEvent e) 
 	{
-		
+		try {
+			targetingOnSem.acquire();
+			if(targetingOn)
+			{
+				targeting.mouseMoved(e);
+			}
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		targetingOnSem.release();
 	}
 
 	@Override

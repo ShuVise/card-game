@@ -1,5 +1,6 @@
 package gameState.actions;
 
+import cards.cardAbilities.CardAbility;
 import gameState.GameState;
 
 public class ShowGameState implements Action
@@ -13,6 +14,11 @@ public class ShowGameState implements Action
 	public void execute() 
 	{
 		System.out.println(gameState);
+	}
+	@Override
+	public void registerAbility(CardAbility ability) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

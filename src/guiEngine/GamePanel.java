@@ -11,14 +11,15 @@ import javax.swing.SwingUtilities;
 
 import guiEngine.gameWindowStates.WindowStateManager;
 
-public class GamePanel extends JPanel implements Runnable, KeyListener, MouseListener 
+public class GamePanel extends JPanel implements Runnable, KeyListener, MouseListener, MouseMotionListener
 {
 	public static final int HEIGHT = 300;
 	public static final int WIDTH = 300;
 	public static final int scale = 2;
 	public static final int cardInHandWidth = 45;
 	public static final int cardInHandHeight = 65;
-	public static final int cardInHandGap = 3;
+	public static final int cardInHandGapWidth = 3;
+	public static final int cardInHandGapHeight = 3;
 	private Thread thread;
 	private boolean running;
 	private int FPS = 60;
@@ -65,6 +66,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener, MouseLis
 			thread = new Thread(this);
 			addKeyListener(this);
 			addMouseListener(this);
+			addMouseMotionListener(this);
 			thread.start();
 		}
 	}
@@ -166,5 +168,19 @@ public class GamePanel extends JPanel implements Runnable, KeyListener, MouseLis
 	public void mouseReleased(MouseEvent e) 
 	{
 		wsm.mouseReleased(e);
+	}
+
+
+	@Override
+	public void mouseDragged(MouseEvent e) 
+	{
+		wsm.mouseDragged(e);
+	}
+
+
+	@Override
+	public void mouseMoved(MouseEvent e) 
+	{
+		wsm.mouseMoved(e);
 	}
 }

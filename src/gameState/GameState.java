@@ -93,6 +93,11 @@ public class GameState implements GameStateInterface
 		return heroHand.get(player).getCard(index);
 	}
 	
+	public boolean hasCardsInDeck(Player player)
+	{
+		return heroDeck.get(player).hasCardsInDeck();
+	}
+	
 	public Hand getLowerHand()
 	{
 		return heroHand.get(hero[lowerHero]);

@@ -20,5 +20,7 @@ public abstract class WindowState extends JPanel
 	public abstract void init();
 	public abstract void mousePressed(MouseEvent e);
 	public abstract void mouseReleased(MouseEvent e);
+	public abstract void mouseMoved(MouseEvent e);
+	public abstract void mouseDragged(MouseEvent e);
 	public abstract void buttonPressed(int ID);
 }

@@ -13,8 +13,12 @@ import java.util.Map;
 import gameState.GameState;
 import gameState.GameStateView;
 import gameState.actions.DrawCard;
+import gameState.actions.LowerHeroDrawCard;
 import guiEngine.GamePanel;
 import guiEngine.guiUtilities.Button;
+import guiEngine.guiUtilities.CardGUI;
+import guiEngine.guiUtilities.GUIUtility;
+import guiEngine.guiUtilities.HandLowerGUI;
 import main.MainLoop;
 
 public class PlayState extends WindowState
@@ -24,6 +28,7 @@ public class PlayState extends WindowState
 	private final static int menuButton = 0;
 	private final static int drawCard = 1;
 	private Map <Integer,Button> buttons = new HashMap<Integer,Button>();
+	public static GUIUtility onMouse = null;
 	public PlayState(WindowStateManager wsm)
 	{
 		super();
@@ -41,7 +46,9 @@ public class PlayState extends WindowState
 		buttons.put(new Integer(drawCard), getCard);
 		getCard.setPosition((int)(GamePanel.getMyWidth()*0.9), (int)(GamePanel.getMyHeight()*0.9));
 		add(getCard);
+		add(HandLowerGUI.getInstance());
 	}
+	
 	@Override
 	public void update() 
 	{
@@ -62,6 +69,11 @@ public class PlayState extends WindowState
 			}
 		}
 		gsv.draw(g);
+		if(onMouse!=null)
+		{
+			if(onMouse instanceof CardGUI)
+			((CardGUI) onMouse).drawOnMouse(g);
+		}
 	}
 
 	@Override
@@ -88,16 +100,21 @@ public class PlayState extends WindowState
 	public void mousePressed(MouseEvent e) 
 	{
 		Component c = getComponentAt(e.getPoint());
-		if(c instanceof Button)
+		if(c instanceof GUIUtility)
 		{
-			((Button) c).pressed();
+			((GUIUtility) c).mousePressed(e);
 		}
 	}
 	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+	public void mouseReleased(MouseEvent e) 
+	{
+		if(onMouse instanceof CardGUI)
+		{
+			((CardGUI) onMouse).mouseReleased(e);
+		}
+		onMouse = null;
 	}
+	
 	@Override
 	public void buttonPressed(int ID) 
 	{
@@ -107,7 +124,23 @@ public class PlayState extends WindowState
 		}
 		else if(ID == drawCard )
 		{
-			MainLoop.addAction(new DrawCard(gameState.getLowerHero()));
+			MainLoop.addAction(new LowerHeroDrawCard());
 		}
+	}
+
+	@Override
+	public void mouseMoved(MouseEvent e) 
+	{
+		
+	}
+
+	@Override
+	public void mouseDragged(MouseEvent e) 
+	{
+		if(onMouse instanceof CardGUI)
+		{
+			((CardGUI) onMouse).mouseDragged(e);
+		}
+		
 	}
 }

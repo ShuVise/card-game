@@ -8,16 +8,16 @@ import java.util.List;
 import cards.Card;
 import gameUtilities.Hand;
 import guiEngine.GamePanel;
+import guiEngine.guiUtilities.HandLowerGUI;
 
 public class GameStateView 
 {
 	private GameState gameState = null;
-	private static Font cardNameFont = new Font("Ariel",Font.PLAIN,11);
 	private int noCards;
 	private int middle;
 	private int leftSide;
 	private List<Card> cards = null;
-	
+	private HandLowerGUI hand = HandLowerGUI.getInstance();
 	
 	public GameStateView(GameState gameState)
 	{
@@ -26,27 +26,14 @@ public class GameStateView
 	
 	public void update()
 	{
-		cards = gameState.getLowerHand().getCards();
-		noCards = cards.size();
-		middle = GamePanel.getMyWidth()/2;
-		leftSide = (int) (-(noCards/2.0)*GamePanel.cardInHandWidth - ((noCards-1)/2.0)*GamePanel.cardInHandGap);
+		
 	}
 	
 	public void draw(Graphics2D g)
 	{
 		Font saveFont = g.getFont();
-		g.setFont(cardNameFont);
 		int iterator = 0;
-		for(Card card : cards)
-		{
-			g.setColor(Color.BLACK);
-			int x = middle+leftSide + iterator*GamePanel.cardInHandWidth + GamePanel.cardInHandGap*iterator;
-			int y = GamePanel.getMyHeight()-GamePanel.cardInHandHeight;
-			g.drawRect(x, y, GamePanel.cardInHandWidth, GamePanel.cardInHandHeight - 10);
-			int stringWidth = g.getFontMetrics(cardNameFont).stringWidth(card.getName());
-			g.drawString(card.getName(), x + GamePanel.cardInHandWidth/2 - stringWidth/2, y + GamePanel.cardInHandHeight/2);
-			iterator++;
-		}
+		hand.draw(g);
 		g.setFont(saveFont);
 	}
 }

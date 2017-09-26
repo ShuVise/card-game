@@ -2,6 +2,7 @@ package gameState.actions;
 
 import cards.Card;
 import gameState.GameState;
+import gameState.actions.actionExceptions.NoCardsInDeckException;
 import player.Player;
 
 public class DrawCard implements Action
@@ -15,6 +16,7 @@ public class DrawCard implements Action
 	
 	public void execute() 
 	{
+		if(!GameState.getGameState().hasCardsInDeck(player)) throw new NoCardsInDeckException();
 		Card card = GameState.getGameState().getTopCardFromDeck(player);
 		System.out.println(player.getName() + " draws: " + card + '\n');
 		new AddCardToHand(player,card).execute();

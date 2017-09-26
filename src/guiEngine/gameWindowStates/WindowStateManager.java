@@ -59,4 +59,14 @@ public class WindowStateManager
 	{
 		gameStates.get(currentState).mouseReleased(e);
 	}
+	
+	public void mouseMoved(MouseEvent e)
+	{
+		gameStates.get(currentState).mouseMoved(e);
+	}
+	
+	public void mouseDragged(MouseEvent e)
+	{
+		gameStates.get(currentState).mouseDragged(e);
+	}
 }

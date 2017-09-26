@@ -12,6 +12,7 @@ import javax.swing.JButton;
 
 import guiEngine.GamePanel;
 import guiEngine.guiUtilities.Button;
+import guiEngine.guiUtilities.GUIUtility;
 
 public class MenuState extends WindowState
 {
@@ -75,9 +76,9 @@ public class MenuState extends WindowState
 	public void mousePressed(MouseEvent e) 
 	{
 		Component c = getComponentAt(e.getPoint());
-		if(c instanceof Button)
+		if(c instanceof GUIUtility)
 		{
-			((Button) c).pressed();
+			((GUIUtility) c).mousePressed(e);
 		}
 	}
 	@Override
@@ -92,6 +93,16 @@ public class MenuState extends WindowState
 		{
 			wsm.setState(WindowStateManager.gameState);
 		}
+	}
+	@Override
+	public void mouseMoved(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void mouseDragged(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

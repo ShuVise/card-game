@@ -12,6 +12,7 @@ import cardCache.CardCache;
 import cards.cardEntities.CardBuilder;
 import gameState.GameState;
 import gameState.actions.*;
+import gameState.actions.actionExceptions.NoCardsInDeckException;
 import guiEngine.GameMainWindow;
 import player.Player;
 
@@ -93,7 +94,6 @@ public class MainLoop implements Runnable
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println("Added action");
 		actionList.add(action);
 		actionListLock.release();
 		runningLock.release();
@@ -123,7 +123,14 @@ public class MainLoop implements Runnable
 				action = actionList.get(0);
 				actionList.remove(0);
 				actionListLock.release();
-				action.execute();
+				try
+				{
+					action.execute();
+				}
+				catch(NoCardsInDeckException e)
+				{
+					System.out.println("No Cards in Deck!");
+				}
 				action = null;
 				runningLock.release();
 			}

@@ -3,13 +3,15 @@ package guiEngine.guiUtilities;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
+import java.awt.event.MouseEvent;
 
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 import guiEngine.gameWindowStates.WindowState;
 import guiEngine.guiUtilities.font.CustomFont;
 
-public class Button extends JPanel
+public class Button extends GUIUtility
 {
 	private WindowState ws = null;
 	private String text = null;
@@ -57,8 +59,8 @@ public class Button extends JPanel
 		g.setFont(saveFont);
 	}
 	
-	public void pressed()
+	public void mousePressed(MouseEvent e)
 	{
-		ws.buttonPressed(myId);
+		if(SwingUtilities.isLeftMouseButton(e)) ws.buttonPressed(myId);
 	}
 }

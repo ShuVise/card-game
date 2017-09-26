@@ -28,6 +28,12 @@ public class Deck
 		return card;
 	}
 	
+	public boolean hasCardsInDeck()
+	{
+		if(deck.size()>0) return true;
+		else return false;
+	}
+	
 	public String toString()
 	{
 		String output = new String();

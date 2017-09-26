@@ -14,6 +14,7 @@ import gameState.GameState;
 import gameState.GameStateView;
 import gameState.actions.DrawCard;
 import gameState.actions.LowerHeroDrawCard;
+import gameUtilities.boardPcg.Board;
 import guiEngine.GamePanel;
 import guiEngine.guiUtilities.Button;
 import guiEngine.guiUtilities.CardGUI;
@@ -29,6 +30,8 @@ public class PlayState extends WindowState
 	private final static int drawCard = 1;
 	private Map <Integer,Button> buttons = new HashMap<Integer,Button>();
 	public static GUIUtility onMouse = null;
+	private Board board = Board.getInstance();
+	
 	public PlayState(WindowStateManager wsm)
 	{
 		super();
@@ -44,9 +47,10 @@ public class PlayState extends WindowState
 		add(menu);
 		Button getCard = new Button("draw a card!", this, drawCard);
 		buttons.put(new Integer(drawCard), getCard);
-		getCard.setPosition((int)(GamePanel.getMyWidth()*0.9), (int)(GamePanel.getMyHeight()*0.9));
+		getCard.setPosition((int)(GamePanel.getMyWidth()*0.9), (int)(GamePanel.getMyHeight()*0.93));
 		add(getCard);
 		add(HandLowerGUI.getInstance());
+		add(board);
 	}
 	
 	@Override
@@ -61,6 +65,7 @@ public class PlayState extends WindowState
 		g.setColor(Color.WHITE);
 		g.fillRect(0,0, GamePanel.WIDTH*GamePanel.scale, GamePanel.HEIGHT*GamePanel.scale);
 		g.setColor(Color.BLACK);
+		board.draw(g);
 		for(Component c : getComponents())
 		{
 			if(c instanceof Button)

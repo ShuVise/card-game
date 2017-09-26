@@ -8,4 +8,6 @@ public abstract class GUIUtility extends JPanel
 {
 
 	public abstract void mousePressed(MouseEvent e);
+	public abstract void mouseDragged(MouseEvent e);
+	public abstract void mouseReleased(MouseEvent e);
 }

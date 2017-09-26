@@ -21,7 +21,7 @@ import main.MainLoop;
 public class CardGUI extends GUIUtility
 {
 	private Card card = null;
-	private static Font cardNameFont = new Font("Ariel",Font.PLAIN,11);
+	private static Font cardNameFont = new Font("Ariel",Font.PLAIN,(int) (11*GamePanel.scale/1.5));
 	private int x,y, stringY, stringX;
 	private String name = null;
 	private int dx,dy, lastX, lastY;
@@ -122,8 +122,7 @@ public class CardGUI extends GUIUtility
 		try {
 			boolLock.acquire();
 			onMouse = false;
-			System.out.println(dy);
-			if(dy<-50)
+			if(dy<-GamePanel.cardInHandHeight*1.7)
 			{
 				System.out.println("Hi");
 				MainLoop.addAction(new PlayCardFromHand(card));

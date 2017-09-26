@@ -8,6 +8,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
+import guiEngine.GamePanel;
 import guiEngine.gameWindowStates.WindowState;
 import guiEngine.guiUtilities.font.CustomFont;
 
@@ -17,7 +18,7 @@ public class Button extends GUIUtility
 	private String text = null;
 	private CustomFont font;
 	private int x=0, y=0;
-	private int height = 20;
+	private int height = (int) (20*GamePanel.scale/1.5);
 	private int myId;
 	public Button(WindowState ws, int buttonId)
 	{
@@ -62,5 +63,17 @@ public class Button extends GUIUtility
 	public void mousePressed(MouseEvent e)
 	{
 		if(SwingUtilities.isLeftMouseButton(e)) ws.buttonPressed(myId);
+	}
+
+	@Override
+	public void mouseDragged(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 }

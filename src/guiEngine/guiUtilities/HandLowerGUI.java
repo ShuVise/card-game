@@ -92,4 +92,16 @@ public class HandLowerGUI extends GUIUtility
 			card.mousePressed(e);
 		}
 	}
+
+	@Override
+	public void mouseDragged(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
 }

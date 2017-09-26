@@ -14,10 +14,10 @@ import guiEngine.gameWindowStates.WindowStateManager;
 public class GamePanel extends JPanel implements Runnable, KeyListener, MouseListener, MouseMotionListener
 {
 	public static final int HEIGHT = 300;
-	public static final int WIDTH = 300;
-	public static final int scale = 2;
-	public static final int cardInHandWidth = 45;
-	public static final int cardInHandHeight = 65;
+	public static final int WIDTH = 450;
+	public static final int scale = 3;
+	public static final int cardInHandWidth = (int) (WIDTH/10*scale*0.75); //300/10 = 30 *1.5
+	public static final int cardInHandHeight = (int) (HEIGHT/10*scale*1.5); //300*2 = 600, 600/10 = 60 *1.1 = 66;
 	public static final int cardInHandGapWidth = 3;
 	public static final int cardInHandGapHeight = 3;
 	private Thread thread;

@@ -62,10 +62,6 @@ public class MainLoop implements Runnable
 		actionList.add(new DrawCard(lowerHero));
 		actionList.add(new DrawCard(upperHero));
 		actionList.add(new DrawCard(lowerHero));
-		actionList.add(new PlayCardFromHand(lowerHero,0));
-		actionList.add(new PlayCardFromHand(lowerHero,0));
-		actionList.add(new PlayCardFromHand(upperHero,0));
-		//actionList.add(new DrawCard(upperHero));
 	}
 	
 	private void loadCards()

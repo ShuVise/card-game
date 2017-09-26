@@ -40,7 +40,7 @@ public class MenuState extends WindowState
 	public void draw(Graphics2D g) 
 	{
 		g.setColor(Color.WHITE);
-		g.fillRect(0,0, GamePanel.WIDTH*GamePanel.scale, GamePanel.HEIGHT*GamePanel.scale);
+		g.fillRect(0,0, (int)(GamePanel.WIDTH*GamePanel.scale), (int)(GamePanel.HEIGHT*GamePanel.scale));
 		g.setColor(Color.BLACK);
 		for(Component c : getComponents())
 		{

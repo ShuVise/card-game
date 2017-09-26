@@ -7,19 +7,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cards.cardsBodies.Minion;
+import gameState.GameState;
 import guiEngine.GamePanel;
 import guiEngine.guiUtilities.GUIUtility;
+import guiEngine.guiUtilities.MinionGUI;
+import player.Player;
+
+import java.awt.Color;
 
 public class Board extends GUIUtility
 {
 	
 	private static Board board = new Board();
 	private List<Minion> minions = new ArrayList<Minion>();
+	private List<MinionGUI> lowerMinions = new ArrayList<MinionGUI>();
 	private int cords[][];
 	private int noOfRows = 4;
+	private double middleYIn = GamePanel.getMyHeight()*0.46;
+	private double middleXIn = GamePanel.getMyWidth()*0.99/2;
 	private Board()
 	{
-		double middleYIn = 0.46;
+		middleYIn = 0.46;
 		double upDownWidth = 0.71;
 		double upDownHeight = 0.045;
 		double leftRightWidth = 0.27;
@@ -84,6 +92,21 @@ public class Board extends GUIUtility
 	public void addMinionToBoard(Minion minion)
 	{
 		minions.add(minion);
+		Player lowerPlayer = GameState.getGameState().getLowerHero();
+		MinionGUI newMinion = new MinionGUI(minion);
+		if(minion.getOwner() == lowerPlayer)
+		{
+			lowerMinions.add(newMinion);
+			int noMinions = lowerMinions.size();
+			int mostLeft = (int) (middleXIn - (noMinions/2.0*GamePanel.minionOnBoardWidth) - ((noMinions-1)/2.0*GamePanel.minionOnBoardGapWidth));
+			int mostTop = (int) (GamePanel.getMyHeight()*0.3 + GamePanel.minionOnBoardHeight);
+			int iterator = 0;
+			for(MinionGUI minionGUI : lowerMinions)
+			{
+				minionGUI.setXY(mostLeft+(iterator++)*GamePanel.minionOnBoardWidth + (iterator)*GamePanel.minionOnBoardGapWidth, mostTop);
+			}
+		}
+		add(newMinion);
 	}
 	
 	@Override
@@ -108,9 +131,14 @@ public class Board extends GUIUtility
 	
 	public void draw(Graphics2D g)
 	{
+		Color darkSalmon = new Color(233,96,122);
 		for(int i=0;i<noOfRows;i++)
 		{
 			g.drawArc(cords[i][0], cords[i][1], cords[i][2], cords[i][3], cords[i][4],cords[i][5]);
+		}
+		for(MinionGUI minion : lowerMinions)
+		{
+			minion.draw(g);
 		}
 	}
 }

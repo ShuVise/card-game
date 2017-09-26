@@ -6,6 +6,7 @@ import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Semaphore;
 
 import javax.swing.JPanel;
 
@@ -16,6 +17,7 @@ public class HandLowerGUI extends GUIUtility
 {
 	private List <CardGUI> hand = null;
 	private static HandLowerGUI thisInstance = new HandLowerGUI();
+	private Semaphore handSemaphore = new Semaphore(1);
 	private HandLowerGUI()
 	{
 		super();
@@ -46,10 +48,17 @@ public class HandLowerGUI extends GUIUtility
 	
 	public void addCardToHand(Card card)
 	{
+		try {
+			handSemaphore.acquire();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		CardGUI newCard = new CardGUI(card);
 		hand.add(newCard);
 		setCardBounds();
 		add(newCard);
+		handSemaphore.release();
 	}
 	
 	public void removeCardFromHand(Card card)
@@ -73,10 +82,18 @@ public class HandLowerGUI extends GUIUtility
 	
 	public void draw(Graphics2D g)
 	{
+		try {
+			handSemaphore.acquire();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		for(CardGUI card : hand)
 		{
 			card.draw(g);
 		}
+		handSemaphore.release();
+		handSemaphore.release();
 	}
 
 	@Override

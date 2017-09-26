@@ -47,7 +47,7 @@ public class CardGUI extends GUIUtility
 		stringHeight = (int)(cardNameFont.getStringBounds(name, frc).getHeight());
 		this.x = x;
 		this.y = y;
-		stringY = (int) (y + GamePanel.cardInHandHeight/2.0  + stringHeight/2.0);
+		stringY = (int) (y + GamePanel.cardInHandHeight/2.0  + stringHeight/4.0);
 		stringX = (int) (x + GamePanel.cardInHandWidth/2.0 - stringWidth/2.0);
 	}
 	

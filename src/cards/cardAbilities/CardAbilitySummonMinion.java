@@ -2,6 +2,7 @@ package cards.cardAbilities;
 
 import cards.cardsBodies.Minion;
 import gameState.GameState;
+import gameUtilities.boardPcg.Board;
 
 public class CardAbilitySummonMinion extends CardAbility
 {
@@ -16,6 +17,7 @@ public class CardAbilitySummonMinion extends CardAbility
 		System.out.println("Summoned minion: " + minion + " for " + owner.getName() + "\n");
 		minion.setOwner(owner);
 		GameState.getGameState().addVasalToField(minion);
+		Board.getInstance().addMinionToBoard(minion);
 	}
 	
 	public String toString()

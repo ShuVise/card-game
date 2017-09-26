@@ -15,11 +15,14 @@ public class GamePanel extends JPanel implements Runnable, KeyListener, MouseLis
 {
 	public static final int HEIGHT = 300;
 	public static final int WIDTH = 450;
-	public static final int scale = 3;
+	public static final double scale = 3;
 	public static final int cardInHandWidth = (int) (WIDTH/10*scale*0.75); //300/10 = 30 *1.5
 	public static final int cardInHandHeight = (int) (HEIGHT/10*scale*1.5); //300*2 = 600, 600/10 = 60 *1.1 = 66;
-	public static final int cardInHandGapWidth = 3;
-	public static final int cardInHandGapHeight = 3;
+	public static final int cardInHandGapWidth = (int) (WIDTH/450.0*scale);
+	public static final int cardInHandGapHeight = (int) (HEIGHT/300.0*scale);
+	public static final int minionOnBoardHeight = (int) (HEIGHT/900.0*120*5);
+	public static final int minionOnBoardWidth = (int) (WIDTH/1350.0*80*5);
+	public static final int minionOnBoardGapWidth = (int) (3*scale);
 	private Thread thread;
 	private boolean running;
 	private int FPS = 60;
@@ -34,7 +37,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener, MouseLis
 	{
 		super();
 		init();
-		setPreferredSize(new Dimension(WIDTH*scale,HEIGHT*scale));
+		setPreferredSize(new Dimension((int)(WIDTH*scale),(int) (HEIGHT*scale)));
 		setFocusable(true);
 		requestFocus();
 	}
@@ -42,17 +45,17 @@ public class GamePanel extends JPanel implements Runnable, KeyListener, MouseLis
 	
 	public static int getMyWidth()
 	{
-		return WIDTH*scale;
+		return (int) (WIDTH*scale);
 	}
 	
 	public static int getMyHeight()
 	{
-		return HEIGHT*scale;
+		return (int) (HEIGHT*scale);
 	}
 	
 	private void init()
 	{
-		image = new BufferedImage(WIDTH*scale,HEIGHT*scale,BufferedImage.TYPE_INT_RGB);
+		image = new BufferedImage((int)(WIDTH*scale),(int)(HEIGHT*scale),BufferedImage.TYPE_INT_RGB);
 		g = (Graphics2D)image.getGraphics();
 		running = true;
 		wsm = new WindowStateManager();

@@ -73,6 +73,7 @@ public class Minion implements CardBodyInterface
 	public void inflictDamage(int damage)
 	{
 		hp-=damage;
+		System.out.println(hp);
 		checkIfAlive();
 	}
 	

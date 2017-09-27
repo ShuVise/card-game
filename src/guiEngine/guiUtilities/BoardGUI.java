@@ -134,6 +134,7 @@ public class BoardGUI extends GUIUtility
 			e.printStackTrace();
 		}
 		lowerMinions.remove(gui);
+		remove(gui);
 		adjustBoard();
 		minionSem.release();
 	}
@@ -146,6 +147,7 @@ public class BoardGUI extends GUIUtility
 		{
 			body = (BodyGUI) c;
 		}
+		System.out.println(body);
 		return body;
 	}
 	

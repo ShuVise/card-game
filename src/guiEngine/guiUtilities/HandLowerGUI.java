@@ -101,7 +101,6 @@ public class HandLowerGUI extends GUIUtility
 			card.draw(g);
 		}
 		handSemaphore.release();
-		handSemaphore.release();
 	}
 
 	@Override

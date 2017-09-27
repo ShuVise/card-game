@@ -51,6 +51,7 @@ public class MainLoop implements Runnable
 		upperHero.setHp(30);
 		actionList.add(new PrepareGame(lowerHero,upperHero));
 		actionList.add(new ShuffleCardToDeck(lowerHero,cardCache.getCard("Ram")));
+		actionList.add(new ShuffleCardToDeck(lowerHero,cardCache.getCard("Ram")));
 		actionList.add(new ShuffleCardToDeck(lowerHero,cardCache.getCard("Rem")));
 		actionList.add(new ShuffleCardToDeck(lowerHero,cardCache.getCard("Archer")));
 		actionList.add(new ShuffleCardToDeck(lowerHero,cardCache.getCard("Archer")));
@@ -64,10 +65,10 @@ public class MainLoop implements Runnable
 	private void loadCards()
 	{
 		List <String> properties = new ArrayList<String>();
-		properties.addAll(Arrays.asList("Rem","minion","3","4","3"));
+		properties.addAll(Arrays.asList("Rem","minion","3","3","3"));
 		cardCache.addToCache(cardBuilder.buildCard(properties));
 		properties.clear();
-		properties.addAll(Arrays.asList("Ram","minion","3","5","3"));
+		properties.addAll(Arrays.asList("Ram","minion","3","3","3"));
 		cardCache.addToCache(cardBuilder.buildCard(properties));
 		properties.clear();
 		properties.addAll(Arrays.asList("Izaro","minion","8","12","8"));

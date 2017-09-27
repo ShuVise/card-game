@@ -2,22 +2,22 @@ package cards.cardAbilities;
 
 import cards.cardsBodies.Minion;
 import gameState.GameState;
-import gameUtilities.boardPcg.Board;
+import guiEngine.guiUtilities.BoardGUI;
 
 public class CardAbilitySummonMinionLowerHero extends CardAbility
 {
 	private Minion minion;
-	public CardAbilitySummonMinionLowerHero(Minion minion)
+	
+	public void setMinionSummoned(Minion minion)
 	{
 		this.minion = minion;
 	}
 	
 	public void execute() 
 	{
-		System.out.println("Summoned minion: " + minion + " for " + owner.getName() + "\n");
-		minion.setOwner(GameState.getGameState().getLowerHero());
+		System.out.println(minion);
 		GameState.getGameState().addVasalToField(minion);
-		Board.getInstance().addMinionToBoard(minion);
+		BoardGUI.getInstance().addMinionToBoardLowerHero(card,minion);
 	}
 	
 	public String toString()
@@ -31,5 +31,21 @@ public class CardAbilitySummonMinionLowerHero extends CardAbility
 	public void setParameters(String parameters) 
 	{
 		
+	}
+
+	@Override
+	protected CardAbility cloneProtect() {
+		CardAbilitySummonMinionLowerHero cloned = new CardAbilitySummonMinionLowerHero();
+		if(minion!=null)
+		{
+			cloned.setMinionSummoned(minion.clone());
+		}
+		return cloned;
+	}
+
+	@Override
+	public CardAbility clone() {
+		CardAbilitySummonMinionLowerHero cloned = new CardAbilitySummonMinionLowerHero();
+		return cloned;
 	}
 }

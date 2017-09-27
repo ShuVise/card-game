@@ -1,6 +1,7 @@
 package guiEngine.guiUtilities;
 
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 import java.util.concurrent.Semaphore;
@@ -8,31 +9,28 @@ import java.util.concurrent.Semaphore;
 import javax.swing.SwingUtilities;
 
 import gameState.GameState;
-import guiEngine.BodyGUI;
 import guiEngine.gameWindowStates.PlayState;
 
 public class Targeting extends GUIUtility implements MouseMotionListener
 {
 
-	private int startX,startY;
-	private int destX, destY;
+	private Point start, dest;
 	private Semaphore coordSemaphore = new Semaphore(0);
 	private Semaphore endSemaphore = new Semaphore(0);
-	private BodyGUI target = null;
-	public Targeting(int x, int y)
+	private guiEngine.BodyGUI target = null;
+	
+	public Targeting(Point center) 
 	{
-		addMouseMotionListener(this);
-		startX = destX = x;
-		startY = destY = y;
+		start = dest = center;
 		PlayState.getInstance().startTargeting(this);
 		coordSemaphore.release();
 	}
-	
+
 	public void draw(Graphics2D g)
 	{
 		try {
 			coordSemaphore.acquire();
-			g.drawLine(startX, startY, destX, destY);
+			g.drawLine((int)start.getX(), (int)start.getY(), (int)dest.getX(), (int)dest.getY());
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -71,7 +69,7 @@ public class Targeting extends GUIUtility implements MouseMotionListener
 		}
 	}
 
-	public BodyGUI getTarget()
+	public guiEngine.BodyGUI getTarget()
 	{
 		try {
 			endSemaphore.acquire();
@@ -87,8 +85,7 @@ public class Targeting extends GUIUtility implements MouseMotionListener
 	{
 		try {
 			coordSemaphore.acquire();
-			destX = e.getX();
-			destY = e.getY();
+			dest = e.getPoint();
 		} catch (InterruptedException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();

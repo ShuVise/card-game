@@ -1,6 +1,7 @@
 package player;
 
 import cards.cardsBodies.CardBodyInterface;
+import guiEngine.BodyGUI;
 
 public class Player implements PlayerInterface, CardBodyInterface
 {
@@ -54,5 +55,17 @@ public class Player implements PlayerInterface, CardBodyInterface
 		System.out.println("Deatl damage " + damage + " to " + name);
 		checkIfAlive();
 		
+	}
+
+	@Override
+	public void setGUI(BodyGUI gui) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public BodyGUI getGU() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

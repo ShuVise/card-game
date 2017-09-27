@@ -13,12 +13,9 @@ public class ShuffleCardToDeck implements Action
 	{
 		this.player = player;
 		this.card = card;
-		card.setOwner(player);
-		card.registerAbilities();
 	}
 	public void execute() 
 	{
-		System.out.println("Shuffling card " + card + " to " + player.getName() + "'s deck\n");
 		GameState.getGameState().addCardToDeck(player, card);
 	}
 	@Override

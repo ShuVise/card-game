@@ -16,7 +16,6 @@ public class AddCardToHand implements Action
 	}
 	public void execute() 
 	{
-		System.out.println("Adding card " + card + " to " + player.getName() + "'s hand\n");
 		GameState.getGameState().addCardToHand(player, card);
 	}
 	@Override

@@ -15,9 +15,9 @@ import gameState.GameState;
 import gameState.GameStateView;
 import gameState.actions.DrawCard;
 import gameState.actions.LowerHeroDrawCard;
-import gameUtilities.boardPcg.Board;
 import guiEngine.BodyGUI;
 import guiEngine.GamePanel;
+import guiEngine.guiUtilities.BoardGUI;
 import guiEngine.guiUtilities.Button;
 import guiEngine.guiUtilities.CardGUI;
 import guiEngine.guiUtilities.GUIUtility;
@@ -36,7 +36,7 @@ public class PlayState extends WindowState
 	private boolean targetingOn = false;
 	private Targeting targeting = null;
 	public static GUIUtility onMouse = null;
-	private Board board = Board.getInstance();
+	private BoardGUI board = BoardGUI.getInstance();
 	private static PlayState Instance = new PlayState();
 	
 	public static PlayState getInstance()

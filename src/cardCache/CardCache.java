@@ -20,7 +20,6 @@ public class CardCache
 	public void addToCache(Card card)
 	{
 		cardCache.put(card.getName(), card);
-		System.out.println("Adding: " + card + " to cache");
 	}
 	
 	public String toString()

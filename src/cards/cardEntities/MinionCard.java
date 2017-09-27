@@ -5,42 +5,26 @@ import java.util.List;
 
 import cards.Card;
 import cards.cardAbilities.CardAbility;
-import cards.cardAbilities.CardAbilityInterface;
 import gameState.GameState;
+import guiEngine.BodyGUI;
 import guiEngine.guiUtilities.MinionGUI;
 import player.Player;
 
 public class MinionCard implements Card
 {
+	private BodyGUI center = null;
 	private String name;
 	private Player owner;
-	private List<List<CardAbility>> cardAbilities = new ArrayList<List<CardAbility>>();
 	private List<CardAbility> cardOnPlayEffects = new ArrayList<CardAbility>();
 	
 	private MinionGUI parent = null;
 	public MinionCard()
 	{
-		cardAbilities.add(cardOnPlayEffects);
 	}
 	
 	public void setParent(MinionGUI parent)
 	{
 		this.parent = parent;
-	}
-	public void addAbility(CardAbility ability)
-	{
-		ability.registerAbility(this);
-	}
-	public void registerAbilities()
-	{
-		for(List<CardAbility> list : cardAbilities)
-		{
-			for(CardAbility ability : list)
-			{
-				System.out.println(ability);
-				ability.setOwner(owner);
-			}
-		}
 	}
 	public Card getCard()
 	{
@@ -86,20 +70,33 @@ public class MinionCard implements Card
 	
 	public void play() 
 	{
-		for(CardAbilityInterface ability : cardOnPlayEffects)
+		for(CardAbility ability : cardOnPlayEffects)
 		{
 			System.out.println(ability);
 			ability.execute();
 		}
 	}
-	
+	@Override
 	public Card clone()
 	{
-		MinionCard card = new MinionCard();
-		card.name = this.name;
-		card.owner = this.owner;
-		card.cardOnPlayEffects = new ArrayList(cardOnPlayEffects);
-		card.cardAbilities = new ArrayList(cardAbilities);
-		return card;
+		MinionCard newMinion = new MinionCard();
+		newMinion.setName(name);
+		for(CardAbility ability : cardOnPlayEffects)
+		{
+			ability.cloneToCard(newMinion);
+		}
+		return newMinion;
+	}
+
+	@Override
+	public void setGUICenter(BodyGUI gui)
+	{
+		center = gui;
+	}
+
+	@Override
+	public BodyGUI getGUICenter() 
+	{
+		return center;
 	}
 }

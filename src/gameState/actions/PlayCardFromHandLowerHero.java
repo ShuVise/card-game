@@ -12,7 +12,6 @@ public class PlayCardFromHandLowerHero implements Action
 	private Card card = null;
 	public PlayCardFromHandLowerHero(Card card)
 	{
-		this.player = card.getOwner();
 		this.card = card;
 	}
 	

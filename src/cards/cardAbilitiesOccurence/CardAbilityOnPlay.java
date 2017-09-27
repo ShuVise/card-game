@@ -6,19 +6,14 @@ import player.Player;
 
 public class CardAbilityOnPlay extends CardAbilityOccurence
 {
-	public void registerAbility(Card card) 
+	public void registerAbility(CardAbility ability, Card card)
 	{
+		card.registerOnPlayEffect(ability);
 	}
-
-	public void setParameters(String parameters) 
-	{
-		
-	}
-
+	
 	@Override
-	public void addAbilityToCard(Card card) 
-	{
-		card.registerOnPlayEffect(cardAbility);
-		cardAbility.setCard(card);
+	public CardAbilityOccurence clone() {
+		// TODO Auto-generated method stub
+		return new CardAbilityOnPlay();
 	}
 }

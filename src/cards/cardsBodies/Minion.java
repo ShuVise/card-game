@@ -1,5 +1,7 @@
 package cards.cardsBodies;
 
+import guiEngine.BodyGUI;
+import guiEngine.guiUtilities.CardGUI;
 import player.Player;
 
 public class Minion implements CardBodyInterface
@@ -7,7 +9,7 @@ public class Minion implements CardBodyInterface
 	private int hp, attack;
 	private String name;
 	private int myId;
-	private Player owner;
+	private BodyGUI gui = null;
 	public Minion(String name, int attack, int hp)
 	{
 		this.name = name;
@@ -24,16 +26,6 @@ public class Minion implements CardBodyInterface
 	public int getAttack()
 	{
 		return attack;
-	}
-	
-	public void setOwner(Player player)
-	{
-		this.owner = player;
-	}
-	
-	public Player getOwner()
-	{
-		return owner;
 	}
 	
 	public String getName()
@@ -76,5 +68,22 @@ public class Minion implements CardBodyInterface
 	{
 		hp-=damage;
 		checkIfAlive();
+	}
+	
+	public Minion clone()
+	{
+		Minion cloned = new Minion(name,attack,hp);
+		return cloned;
+	}
+
+	@Override
+	public void setGUI(BodyGUI gui) 
+	{
+		this.gui = gui;
+	}
+
+	@Override
+	public BodyGUI getGU() {
+		return gui;
 	}
 }

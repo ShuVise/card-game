@@ -19,7 +19,6 @@ public class DrawCard implements Action
 	{
 		if(!GameState.getGameState().hasCardsInDeck(player)) throw new NoCardsInDeckException();
 		Card card = GameState.getGameState().getTopCardFromDeck(player);
-		System.out.println(player.getName() + " draws: " + card + '\n');
 		new AddCardToHand(player,card).execute();
 	}
 

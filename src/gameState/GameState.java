@@ -122,10 +122,6 @@ public class GameState implements GameStateInterface
 			output+= player.getName() + " has in hand: " + heroHand.get(player) + '\n';
 			output+= player.getName() + " has in deck: " + heroDeck.get(player) + '\n';
 			output+= player.getName() + " has on board:\n";
-			for(Minion minion : minionsOnBoard)
-			{
-				if(minion.getOwner()==player) output+= minion + "\n";
-			}
 			output += '\n';
 		}
 		return output;

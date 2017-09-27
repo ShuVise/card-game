@@ -9,7 +9,7 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 import cardCache.CardCache;
-import cards.cardEntities.CardBuilder;
+import cards.cardUtilities.CardBuilder;
 import gameState.GameState;
 import gameState.actions.*;
 import gameState.actions.actionExceptions.NoCardsInDeckException;
@@ -36,8 +36,6 @@ public class MainLoop implements Runnable
 		cardBuilder = new CardBuilder();
 		loadCards();
 		prepareGameState();
-		Action action = new ShowGameState(gameState);
-		actionList.add(action);
 		gameWindow = new GameMainWindow();
 		new Thread(this).start();
 	}
@@ -76,7 +74,6 @@ public class MainLoop implements Runnable
 		properties.addAll(Arrays.asList("Archer","minion","1","1","1","DealDamage#3|On play"));
 		cardCache.addToCache(cardBuilder.buildCard(properties));
 		properties.clear();
-		System.out.println(cardCache);
 	}
 
 	public static void addAction(Action action)

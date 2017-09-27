@@ -1,4 +1,4 @@
-package cards.cardEntities;
+package cards.cardUtilities;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -8,11 +8,10 @@ import java.util.List;
 import cards.Card;
 import cards.cardAbilities.CardAbility;
 import cards.cardAbilities.CardAbilityDealDamage;
-import cards.cardAbilities.CardAbilityInterface;
 import cards.cardAbilities.CardAbilitySummonMinionLowerHero;
 import cards.cardAbilitiesOccurence.CardAbilityOccurence;
-import cards.cardAbilitiesOccurence.CardAbilityOccurenceInterface;
 import cards.cardAbilitiesOccurence.CardAbilityOnPlay;
+import cards.cardEntities.MinionCard;
 import cards.cardsBodies.Minion;
 
 
@@ -40,6 +39,7 @@ public class CardBuilder
 	static private Hashtable<String, CardAbilityOccurence> occurenceHash  = new Hashtable<String, CardAbilityOccurence>();
 	public CardBuilder()
 	{
+		abilityHash.put("SummonMinion",new CardAbilitySummonMinionLowerHero());
 		abilityHash.put("DealDamage", new CardAbilityDealDamage());
 		occurenceHash.put("On play", new CardAbilityOnPlay());
 	}
@@ -56,18 +56,17 @@ public class CardBuilder
 		String type = properties.get(1);
 		if(type.equalsIgnoreCase("minion"))
 		{
-			System.out.println("Building card named: " + name);
 			MinionCard minionCard = new MinionCard();
-			List<CardAbility> cardAbilities = new ArrayList<CardAbility>();
 			int minionHp = Integer.parseInt(properties.get(2));
 			int minionAttack = Integer.parseInt(properties.get(3));
 			int manaCost = Integer.parseInt(properties.get(4));
 			Minion minion = new Minion(name,minionHp,minionAttack);
 			{
-				CardAbility abilityObject = new CardAbilitySummonMinionLowerHero(minion);
+				CardAbility abilityObject = abilityHash.get("SummonMinion").clone();
+				((CardAbilitySummonMinionLowerHero)abilityObject).setMinionSummoned(minion);
 				CardAbilityOccurence occurenceObject = new CardAbilityOnPlay();
-				occurenceObject.setAbility(abilityObject);
-				occurenceObject.addAbilityToCard(minionCard);
+				abilityObject.setOccurence(occurenceObject);
+				occurenceObject.registerAbility(abilityObject, minionCard);
 			}
 			for(int i=5;i<properties.size();i++)
 			{
@@ -76,17 +75,13 @@ public class CardBuilder
 				ability = abilityString.substring(0, abilityString.indexOf('#'));
 				parameters = abilityString.substring(abilityString.indexOf('#')+1, abilityString.indexOf('|'));
 				occurence = abilityString.substring(abilityString.indexOf('|')+1, abilityString.length());
-				System.out.println(ability);
-				System.out.println(parameters);
-				System.out.println(occurence);
-				CardAbility abilityObject = abilityHash.get(ability).clone();
 				CardAbilityOccurence occurenceObject = (CardAbilityOccurence) occurenceHash.get(occurence).clone();
+				CardAbility abilityObject = abilityHash.get(ability).clone();
 				abilityObject .setParameters(parameters);
-				occurenceObject.setAbility(abilityObject);
-				occurenceObject.addAbilityToCard(minionCard);
+				abilityObject.setOccurence(occurenceObject);
+				occurenceObject.registerAbility(abilityObject, minionCard);
 			}
 			minionCard.setName(name);
-			for(CardAbility ability : cardAbilities) minionCard.addAbility(ability);
 			card = minionCard;
 		}
 		return card;

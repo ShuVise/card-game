@@ -48,7 +48,6 @@ public class Button extends GUIUtility
 		this.x = x-((int)width/2);
 		this.y = y-height;
 		this.setBounds(this.x, this.y, width, height);
-		System.out.println(this.x + " " + this.y);
 	}
 	
 	public void draw(Graphics2D g)

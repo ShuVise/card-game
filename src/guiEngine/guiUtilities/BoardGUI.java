@@ -1,4 +1,4 @@
-package gameUtilities.boardPcg;
+package guiEngine.guiUtilities;
 
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -7,28 +7,27 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
+import cards.Card;
 import cards.cardsBodies.Minion;
 import gameState.GameState;
 import guiEngine.BodyGUI;
 import guiEngine.GamePanel;
-import guiEngine.guiUtilities.GUIUtility;
-import guiEngine.guiUtilities.MinionGUI;
 import player.Player;
 
 import java.awt.Color;
 import java.awt.Component;
 
-public class Board extends GUIUtility
+public class BoardGUI extends GUIUtility
 {
 	
-	private static Board board = new Board();
+	private static BoardGUI board = new BoardGUI();
 	private List<Minion> minions = new ArrayList<Minion>();
 	private List<MinionGUI> lowerMinions = new ArrayList<MinionGUI>();
 	private int cords[][];
 	private int noOfRows = 4;
 	private double middleYIn = GamePanel.getMyHeight()*0.46;
 	private double middleXIn = GamePanel.getMyWidth()*0.99/2;
-	private Board()
+	private BoardGUI()
 	{
 		middleYIn = 0.46;
 		double upDownWidth = 0.71;
@@ -89,26 +88,24 @@ public class Board extends GUIUtility
 		setBounds(0,0,GamePanel.getMyWidth(),GamePanel.getMyHeight());
 	}
 	
-	public static Board getInstance()
+	public static BoardGUI getInstance()
 	{
 		return board;
 	}
-	public void addMinionToBoard(Minion minion)
+	public void addMinionToBoardLowerHero(Card card, Minion minion)
 	{
 		minions.add(minion);
-		Player lowerPlayer = GameState.getGameState().getLowerHero();
 		MinionGUI newMinion = new MinionGUI(minion);
-		if(minion.getOwner() == lowerPlayer)
+		card.setGUICenter(newMinion);
+		minion.setGUI(newMinion);
+		lowerMinions.add(newMinion);
+		int noMinions = lowerMinions.size();
+		int mostLeft = (int) (middleXIn - (noMinions/2.0*GamePanel.minionOnBoardWidth) - ((noMinions-1)/2.0*GamePanel.minionOnBoardGapWidth));
+		int mostTop = (int) (GamePanel.getMyHeight()*0.3 + GamePanel.minionOnBoardHeight);
+		int iterator = 0;
+		for(MinionGUI minionGUI : lowerMinions)
 		{
-			lowerMinions.add(newMinion);
-			int noMinions = lowerMinions.size();
-			int mostLeft = (int) (middleXIn - (noMinions/2.0*GamePanel.minionOnBoardWidth) - ((noMinions-1)/2.0*GamePanel.minionOnBoardGapWidth));
-			int mostTop = (int) (GamePanel.getMyHeight()*0.3 + GamePanel.minionOnBoardHeight);
-			int iterator = 0;
-			for(MinionGUI minionGUI : lowerMinions)
-			{
-				minionGUI.setXY(mostLeft+(iterator++)*GamePanel.minionOnBoardWidth + (iterator)*GamePanel.minionOnBoardGapWidth, mostTop);
-			}
+			minionGUI.setXY(mostLeft+(iterator++)*GamePanel.minionOnBoardWidth + (iterator)*GamePanel.minionOnBoardGapWidth, mostTop);
 		}
 		add(newMinion);
 	}

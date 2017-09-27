@@ -14,7 +14,7 @@ public class CardAbilityDealDamage extends CardAbility
 	@Override
 	public void execute() 
 	{
-		Targeting selectedTarget = new Targeting(0,0);
+		Targeting selectedTarget = new Targeting(card.getGUICenter().getCenter());
 		BodyGUI targetGUI = selectedTarget.getTarget();
 		System.out.println(targetGUI.getName());
 		if(targetGUI!=null)MainLoop.addAction(new InflictDamage(targetGUI.getBody(),damage));
@@ -25,5 +25,25 @@ public class CardAbilityDealDamage extends CardAbility
 	{
 		this.damage = Integer.parseInt(parameters);
 	}
+
+
+	private void setParametersCloning(int damage)
+	{
+		this.damage = damage;
+	}
+	@Override
+	protected CardAbility cloneProtect() 
+	{
+		CardAbilityDealDamage cloned = new CardAbilityDealDamage();
+		cloned.setParametersCloning(damage);
+		return cloned;
+	}
+
+	@Override
+	public CardAbility clone() {
+		CardAbilityDealDamage cloned = new CardAbilityDealDamage();
+		return cloned;
+	}
+
 
 }

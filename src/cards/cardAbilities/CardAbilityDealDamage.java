@@ -16,7 +16,6 @@ public class CardAbilityDealDamage extends CardAbility
 	{
 		Targeting selectedTarget = new Targeting(card.getGUICenter().getCenter());
 		BodyGUI targetGUI = selectedTarget.getTarget();
-		System.out.println(targetGUI.getName());
 		if(targetGUI!=null)MainLoop.addAction(new InflictDamage(targetGUI.getBody(),damage));
 	}
 	

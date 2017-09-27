@@ -52,7 +52,6 @@ public class Player implements PlayerInterface, CardBodyInterface
 	public void inflictDamage(int damage) 
 	{
 		hp-=damage;
-		System.out.println("Deatl damage " + damage + " to " + name);
 		checkIfAlive();
 		
 	}
@@ -67,5 +66,11 @@ public class Player implements PlayerInterface, CardBodyInterface
 	public BodyGUI getGU() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void dies() {
+		// TODO Auto-generated method stub
+		
 	}
 }

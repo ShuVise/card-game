@@ -25,11 +25,4 @@ public class LowerHeroDrawCard implements Action
 		new AddCardToHand(player,card).execute();
 		HandLowerGUI.getInstance().addCardToHand(card);
 	}
-
-	@Override
-	public void registerAbility(CardAbility ability) {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

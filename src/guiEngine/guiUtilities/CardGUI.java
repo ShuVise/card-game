@@ -92,7 +92,6 @@ public class CardGUI extends GUIUtility
 	
 	public void mousePressed(MouseEvent e)
 	{
-		System.out.println("Selected card: " + name);
 		try
 		{
 			boolLock.acquire();
@@ -124,7 +123,6 @@ public class CardGUI extends GUIUtility
 			onMouse = false;
 			if(dy<-GamePanel.cardInHandHeight*1.7)
 			{
-				System.out.println("Hi");
 				MainLoop.addAction(new PlayCardFromHandLowerHero(card));
 			}
 			dx = 0;

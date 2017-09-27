@@ -21,7 +21,6 @@ public class GameState implements GameStateInterface
 	private Map<Player,Deck> heroDeck = new HashMap<Player,Deck>();
 	private int whosTurn = lowerHero;
 	private static GameState gameState = new GameState();
-	private int minionIdNumer = 0;
 	public static GameState getGameState()
 	{
 		return gameState;
@@ -62,10 +61,14 @@ public class GameState implements GameStateInterface
 		return whosTurn;
 	}
 	
+	public void removeMinionFromField(Minion minion)
+	{
+		minionsOnBoard.remove(minion);
+	}
+	
 	public void addVasalToField(Minion minion)
 	{
 		minionsOnBoard.add(minion);
-		minion.setMyId(minionIdNumer++);
 	}
 	
 	public void addCardToHand(Player player, Card card)
@@ -101,15 +104,6 @@ public class GameState implements GameStateInterface
 	public Hand getLowerHand()
 	{
 		return heroHand.get(hero[lowerHero]);
-	}
-	
-	public Minion getVasal(int minionId)
-	{
-		for(Minion minion : minionsOnBoard)
-		{
-			if(minion.getMyId() == minionId) return minion;
-		}
-		return null;
 	}
 	
 	public String toString()

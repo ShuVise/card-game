@@ -18,10 +18,5 @@ public class ShuffleCardToDeck implements Action
 	{
 		GameState.getGameState().addCardToDeck(player, card);
 	}
-	@Override
-	public void registerAbility(CardAbility ability) {
-		// TODO Auto-generated method stub
-		
-	}
 
 }

@@ -20,10 +20,4 @@ public class InflictDamage implements Action {
 		target.inflictDamage(damage);
 	}
 
-	@Override
-	public void registerAbility(CardAbility ability) {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

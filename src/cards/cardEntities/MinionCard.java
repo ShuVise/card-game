@@ -72,7 +72,6 @@ public class MinionCard implements Card
 	{
 		for(CardAbility ability : cardOnPlayEffects)
 		{
-			System.out.println(ability);
 			ability.execute();
 		}
 	}

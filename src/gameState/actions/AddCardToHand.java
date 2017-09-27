@@ -18,10 +18,5 @@ public class AddCardToHand implements Action
 	{
 		GameState.getGameState().addCardToHand(player, card);
 	}
-	@Override
-	public void registerAbility(CardAbility ability) {
-		// TODO Auto-generated method stub
-		
-	}
 
 }

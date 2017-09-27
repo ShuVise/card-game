@@ -1,21 +1,23 @@
 package cards.cardsBodies;
 
+import gameState.GameState;
+import gameState.actions.MinionDies;
 import guiEngine.BodyGUI;
+import guiEngine.guiUtilities.BoardGUI;
 import guiEngine.guiUtilities.CardGUI;
+import main.MainLoop;
 import player.Player;
 
 public class Minion implements CardBodyInterface
 {
 	private int hp, attack;
 	private String name;
-	private int myId;
 	private BodyGUI gui = null;
 	public Minion(String name, int attack, int hp)
 	{
 		this.name = name;
 		this.hp = hp;
 		this.attack = attack;
-		this.myId = 0;
 	}
 	
 	public int getHP()
@@ -32,17 +34,6 @@ public class Minion implements CardBodyInterface
 	{
 		return name;
 	}
-	
-	public int getMyId()
-	{
-		return myId;
-	}
-	
-	public void setMyId(int id)
-	{
-		myId = id;
-	}
-	
 	public void select() 
 	{
 		
@@ -59,7 +50,7 @@ public class Minion implements CardBodyInterface
 	{
 		if(hp <= 0)
 		{
-			System.out.println(name + " has died!");
+			MainLoop.addAction(new MinionDies(this));
 		}
 	}
 	
@@ -85,5 +76,12 @@ public class Minion implements CardBodyInterface
 	@Override
 	public BodyGUI getGU() {
 		return gui;
+	}
+
+	@Override
+	public void dies() 
+	{
+		GameState.getGameState().removeMinionFromField(this);
+		BoardGUI.getInstance().removeBodyFromField(gui);
 	}
 }

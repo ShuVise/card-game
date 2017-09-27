@@ -21,10 +21,4 @@ public class DrawCard implements Action
 		Card card = GameState.getGameState().getTopCardFromDeck(player);
 		new AddCardToHand(player,card).execute();
 	}
-
-	@Override
-	public void registerAbility(CardAbility ability) {
-		// TODO Auto-generated method stub
-		
-	}
 }

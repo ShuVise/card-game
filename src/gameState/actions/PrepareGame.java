@@ -18,10 +18,5 @@ public class PrepareGame implements Action
 		gameState.addLowerHero(playerOne);
 		gameState.addUpperHero(playerTwo);
 	}
-	@Override
-	public void registerAbility(CardAbility ability) {
-		// TODO Auto-generated method stub
-		
-	}
 
 }

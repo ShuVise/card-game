@@ -22,10 +22,4 @@ public class PlayCardFromHandLowerHero implements Action
 		card.play();
 	}
 
-	@Override
-	public void registerAbility(CardAbility ability) {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

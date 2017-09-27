@@ -15,7 +15,6 @@ public class CardAbilitySummonMinionLowerHero extends CardAbility
 	
 	public void execute() 
 	{
-		System.out.println(minion);
 		GameState.getGameState().addVasalToField(minion);
 		BoardGUI.getInstance().addMinionToBoardLowerHero(card,minion);
 	}

@@ -92,13 +92,9 @@ public class BoardGUI extends GUIUtility
 	{
 		return board;
 	}
-	public void addMinionToBoardLowerHero(Card card, Minion minion)
+	
+	private void adjustBoard()
 	{
-		minions.add(minion);
-		MinionGUI newMinion = new MinionGUI(minion);
-		card.setGUICenter(newMinion);
-		minion.setGUI(newMinion);
-		lowerMinions.add(newMinion);
 		int noMinions = lowerMinions.size();
 		int mostLeft = (int) (middleXIn - (noMinions/2.0*GamePanel.minionOnBoardWidth) - ((noMinions-1)/2.0*GamePanel.minionOnBoardGapWidth));
 		int mostTop = (int) (GamePanel.getMyHeight()*0.3 + GamePanel.minionOnBoardHeight);
@@ -107,18 +103,32 @@ public class BoardGUI extends GUIUtility
 		{
 			minionGUI.setXY(mostLeft+(iterator++)*GamePanel.minionOnBoardWidth + (iterator)*GamePanel.minionOnBoardGapWidth, mostTop);
 		}
+	}
+	
+	public void addMinionToBoardLowerHero(Card card, Minion minion)
+	{
+		minions.add(minion);
+		MinionGUI newMinion = new MinionGUI(minion);
+		card.setGUICenter(newMinion);
+		minion.setGUI(newMinion);
+		lowerMinions.add(newMinion);
+		adjustBoard();
 		add(newMinion);
+	}
+	
+	public void removeBodyFromField(BodyGUI gui)
+	{
+		lowerMinions.remove(gui);
+		adjustBoard();
 	}
 	
 	public BodyGUI getBodyAt(MouseEvent e)
 	{
-		System.out.println("Hi33");
 		Component c = getComponentAt(e.getPoint());
 		BodyGUI body = null;
 		if(c instanceof BodyGUI)
 		{
 			body = (BodyGUI) c;
-			System.out.println(body.getName() + " Targeted");
 		}
 		return body;
 	}

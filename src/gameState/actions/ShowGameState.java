@@ -15,10 +15,5 @@ public class ShowGameState implements Action
 	{
 		System.out.println(gameState);
 	}
-	@Override
-	public void registerAbility(CardAbility ability) {
-		// TODO Auto-generated method stub
-		
-	}
 	
 }

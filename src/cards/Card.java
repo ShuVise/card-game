@@ -9,7 +9,7 @@ public interface Card extends Cloneable
 {
 	public String getName();
 	public void play();
-	public void select();;
+	public void select();
 	public void registerOnPlayEffect(CardAbility ability);
 	public Card getCard();
 	public Card clone();

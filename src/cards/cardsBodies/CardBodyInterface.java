@@ -9,4 +9,5 @@ public interface CardBodyInterface
 	public void inflictDamage(int damage);
 	public void setGUI(BodyGUI gui);
 	public BodyGUI getGU();
+	public void dies();
 }

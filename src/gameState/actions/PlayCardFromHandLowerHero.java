@@ -1,12 +1,12 @@
 package gameState.actions;
 
 import cards.Card;
-import cards.cardAbilities.CardAbility;
+import cards.abilities.cardAbilities.CardAbility;
 import gameState.GameState;
 import guiEngine.guiUtilities.HandLowerGUI;
 import player.Player;
 
-public class PlayCardFromHandLowerHero implements Action
+public class PlayCardFromHandLowerHero extends Action
 {
 	private Player player = GameState.getGameState().getLowerHero();
 	private Card card = null;
@@ -21,5 +21,4 @@ public class PlayCardFromHandLowerHero implements Action
 		HandLowerGUI.getInstance().removeCardFromHand(card);
 		card.play();
 	}
-
 }

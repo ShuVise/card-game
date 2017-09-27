@@ -1,12 +1,13 @@
 package gameState.actions;
 
 import cards.Card;
-import cards.cardAbilities.CardAbility;
+import cards.abilities.Ability;
+import cards.abilities.cardAbilities.CardAbility;
 import gameState.GameState;
 import gameState.actions.actionExceptions.NoCardsInDeckException;
 import player.Player;
 
-public class DrawCard implements Action
+public class DrawCard extends Action
 {
 	private Player player;
 	

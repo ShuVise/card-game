@@ -1,6 +1,6 @@
 package cards;
 
-import cards.cardAbilities.CardAbility;
+import cards.abilities.cardAbilities.CardAbility;
 import guiEngine.BodyGUI;
 import guiEngine.guiUtilities.CardGUI;
 import player.Player;

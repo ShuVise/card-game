@@ -55,6 +55,8 @@ public class MainLoop implements Runnable
 		actionList.add(new ShuffleCardToDeck(lowerHero,cardCache.getCard("Archer")));
 		actionList.add(new ShuffleCardToDeck(lowerHero,cardCache.getCard("Archer")));
 		actionList.add(new ShuffleCardToDeck(lowerHero,cardCache.getCard("Archer")));
+		actionList.add(new ShuffleCardToDeck(lowerHero,cardCache.getCard("Corpsetaker")));
+		actionList.add(new ShuffleCardToDeck(lowerHero,cardCache.getCard("Corpsetaker")));
 		actionList.add(new ShuffleCardToDeck(upperHero,cardCache.getCard("Ram")));
 		actionList.add(new ShuffleCardToDeck(upperHero,cardCache.getCard("Rem")));
 	}
@@ -71,7 +73,10 @@ public class MainLoop implements Runnable
 		properties.addAll(Arrays.asList("Izaro","minion","8","12","8"));
 		cardCache.addToCache(cardBuilder.buildCard(properties));
 		properties.clear();
-		properties.addAll(Arrays.asList("Archer","minion","1","1","1","DealDamage#3|On play"));
+		properties.addAll(Arrays.asList("Archer","minion","1","1","1","DealDamage$Card#3|On play"));
+		cardCache.addToCache(cardBuilder.buildCard(properties));
+		properties.clear();
+		properties.addAll(Arrays.asList("Corpsetaker","minion","1","1","1","GainStats$Minion#+1/+1|MinionDies"));
 		cardCache.addToCache(cardBuilder.buildCard(properties));
 		properties.clear();
 	}

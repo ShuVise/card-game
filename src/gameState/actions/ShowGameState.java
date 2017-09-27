@@ -1,9 +1,9 @@
 package gameState.actions;
 
-import cards.cardAbilities.CardAbility;
+import cards.abilities.cardAbilities.CardAbility;
 import gameState.GameState;
 
-public class ShowGameState implements Action
+public class ShowGameState extends Action
 {
 	private GameState gameState;
 	public ShowGameState(GameState gameState)
@@ -13,7 +13,7 @@ public class ShowGameState implements Action
 	@Override
 	public void execute() 
 	{
-		System.out.println(gameState);
+
 	}
 	
 }

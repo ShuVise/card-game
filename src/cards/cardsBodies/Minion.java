@@ -1,5 +1,9 @@
 package cards.cardsBodies;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import cards.abilities.minionAbilities.MinionAbility;
 import gameState.GameState;
 import gameState.actions.MinionDies;
 import guiEngine.BodyGUI;
@@ -10,6 +14,7 @@ import player.Player;
 
 public class Minion implements CardBodyInterface
 {
+	private List<MinionAbility> abilities = new ArrayList<MinionAbility>();
 	private int hp, attack;
 	private String name;
 	private BodyGUI gui = null;
@@ -17,6 +22,16 @@ public class Minion implements CardBodyInterface
 	{
 		this.name = name;
 		this.hp = hp;
+		this.attack = attack;
+	}
+	
+	public void setHP(int hp)
+	{
+		this.hp = hp;
+	}
+	
+	public void setAttack(int attack)
+	{
 		this.attack = attack;
 	}
 	
@@ -61,10 +76,28 @@ public class Minion implements CardBodyInterface
 		checkIfAlive();
 	}
 	
+	public void addAbility(MinionAbility ability)
+	{
+		abilities.add(ability);
+		ability.setTargetMinion(this);
+	}
+	
 	public Minion clone()
 	{
 		Minion cloned = new Minion(name,attack,hp);
+		for(MinionAbility ability : abilities)
+		{
+			ability.cloneToMinion(cloned);
+		}
 		return cloned;
+	}
+	
+	public void summoned()
+	{
+		for(MinionAbility ability : abilities)
+		{
+			ability.minionPlayed();
+		}
 	}
 
 	@Override

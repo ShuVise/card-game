@@ -1,4 +1,4 @@
-package cards.cardAbilities;
+package cards.abilities.cardAbilities;
 
 import cards.cardsBodies.Minion;
 import gameState.GameState;
@@ -15,6 +15,7 @@ public class CardAbilitySummonMinionLowerHero extends CardAbility
 	
 	public void execute() 
 	{
+		minion.summoned();
 		GameState.getGameState().addVasalToField(minion);
 		BoardGUI.getInstance().addMinionToBoardLowerHero(card,minion);
 	}

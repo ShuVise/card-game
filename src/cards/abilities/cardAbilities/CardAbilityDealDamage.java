@@ -1,7 +1,5 @@
-package cards.cardAbilities;
+package cards.abilities.cardAbilities;
 
-import cards.cardsBodies.CardBodyInterface;
-import gameState.GameState;
 import gameState.actions.InflictDamage;
 import guiEngine.BodyGUI;
 import guiEngine.guiUtilities.Targeting;

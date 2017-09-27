@@ -1,8 +1,9 @@
 package gameState.actions;
 
-import cards.cardAbilities.CardAbility;
+import cards.abilities.Ability;
+import cards.abilities.cardAbilities.CardAbility;
 
-public interface Action
+public abstract class Action
 {
-	public void execute();
+	public abstract void execute();
 }

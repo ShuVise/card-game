@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cards.Card;
-import cards.cardAbilities.CardAbility;
+import cards.abilities.cardAbilities.CardAbility;
 import gameState.GameState;
 import guiEngine.BodyGUI;
 import guiEngine.guiUtilities.MinionGUI;

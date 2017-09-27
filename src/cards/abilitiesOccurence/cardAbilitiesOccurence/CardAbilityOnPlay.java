@@ -1,7 +1,7 @@
-package cards.cardAbilitiesOccurence;
+package cards.abilitiesOccurence.cardAbilitiesOccurence;
 
 import cards.Card;
-import cards.cardAbilities.CardAbility;
+import cards.abilities.cardAbilities.CardAbility;
 import player.Player;
 
 public class CardAbilityOnPlay extends CardAbilityOccurence

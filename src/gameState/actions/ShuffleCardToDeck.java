@@ -1,11 +1,11 @@
 package gameState.actions;
 
 import cards.Card;
-import cards.cardAbilities.CardAbility;
+import cards.abilities.cardAbilities.CardAbility;
 import gameState.GameState;
 import player.Player;
 
-public class ShuffleCardToDeck implements Action 
+public class ShuffleCardToDeck extends Action
 {
 	private Player player;
 	private Card card;

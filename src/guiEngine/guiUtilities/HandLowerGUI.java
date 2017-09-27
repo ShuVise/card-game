@@ -64,6 +64,12 @@ public class HandLowerGUI extends GUIUtility
 	
 	public void removeCardFromHand(Card card)
 	{
+		try {
+			handSemaphore.acquire();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		CardGUI cardGUI = null;
 		for(CardGUI cardInHand : hand)
 		{
@@ -79,6 +85,7 @@ public class HandLowerGUI extends GUIUtility
 			hand.remove(cardGUI);
 			setCardBounds();
 		}
+		handSemaphore.release();
 	}
 	
 	public void draw(Graphics2D g)

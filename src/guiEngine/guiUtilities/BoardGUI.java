@@ -6,6 +6,7 @@ import java.awt.Shape;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Semaphore;
 
 import cards.Card;
 import cards.cardsBodies.Minion;
@@ -21,6 +22,7 @@ public class BoardGUI extends GUIUtility
 {
 	
 	private static BoardGUI board = new BoardGUI();
+	private Semaphore minionSem = new Semaphore(1);
 	private List<Minion> minions = new ArrayList<Minion>();
 	private List<MinionGUI> lowerMinions = new ArrayList<MinionGUI>();
 	private int cords[][];
@@ -107,6 +109,12 @@ public class BoardGUI extends GUIUtility
 	
 	public void addMinionToBoardLowerHero(Card card, Minion minion)
 	{
+		try {
+			minionSem.acquire();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		minions.add(minion);
 		MinionGUI newMinion = new MinionGUI(minion);
 		card.setGUICenter(newMinion);
@@ -114,12 +122,20 @@ public class BoardGUI extends GUIUtility
 		lowerMinions.add(newMinion);
 		adjustBoard();
 		add(newMinion);
+		minionSem.release();
 	}
 	
 	public void removeBodyFromField(BodyGUI gui)
 	{
+		try {
+			minionSem.acquire();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		lowerMinions.remove(gui);
 		adjustBoard();
+		minionSem.release();
 	}
 	
 	public BodyGUI getBodyAt(MouseEvent e)
@@ -160,9 +176,16 @@ public class BoardGUI extends GUIUtility
 		{
 			g.drawArc(cords[i][0], cords[i][1], cords[i][2], cords[i][3], cords[i][4],cords[i][5]);
 		}
+		try {
+			minionSem.acquire();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		for(MinionGUI minion : lowerMinions)
 		{
 			minion.draw(g);
 		}
+		minionSem.release();
 	}
 }

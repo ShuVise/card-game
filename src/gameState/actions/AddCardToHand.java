@@ -1,11 +1,12 @@
 package gameState.actions;
 
 import cards.Card;
-import cards.cardAbilities.CardAbility;
+import cards.abilities.Ability;
+import cards.abilities.cardAbilities.CardAbility;
 import gameState.GameState;
 import player.Player;
 
-public class AddCardToHand implements Action
+public class AddCardToHand extends Action
 {
 	private Player player;
 	private Card card;

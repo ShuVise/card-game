@@ -6,11 +6,17 @@ import java.util.Hashtable;
 import java.util.List;
 
 import cards.Card;
-import cards.cardAbilities.CardAbility;
-import cards.cardAbilities.CardAbilityDealDamage;
-import cards.cardAbilities.CardAbilitySummonMinionLowerHero;
-import cards.cardAbilitiesOccurence.CardAbilityOccurence;
-import cards.cardAbilitiesOccurence.CardAbilityOnPlay;
+import cards.abilities.Ability;
+import cards.abilities.cardAbilities.CardAbility;
+import cards.abilities.cardAbilities.CardAbilityDealDamage;
+import cards.abilities.cardAbilities.CardAbilitySummonMinionLowerHero;
+import cards.abilities.minionAbilities.MinionAbility;
+import cards.abilities.minionAbilities.MinionAbilityGainStats;
+import cards.abilitiesOccurence.AbilityOccurence;
+import cards.abilitiesOccurence.cardAbilitiesOccurence.CardAbilityOccurence;
+import cards.abilitiesOccurence.cardAbilitiesOccurence.CardAbilityOnPlay;
+import cards.abilitiesOccurence.minionAbilitiesOccurence.MinionAbilityOccurenceMinionDies;
+import cards.abilitiesOccurence.minionAbilitiesOccurence.MinionAbilityOccurence;
 import cards.cardEntities.MinionCard;
 import cards.cardsBodies.Minion;
 
@@ -23,9 +29,9 @@ import cards.cardsBodies.Minion;
  * 3 - hp
  * 4 - mana cost
  * 5 and lower - abilities 
- * Ability structure: Name of ability # parameters devided by ,| when proced
+ * Ability structure: Name of ability &Card/Minion # parameters devided by ,| when proced
  * Example:
- * Arrays.asList("Archer","minion","1","1","1","DealDamageTwoTimes#3,1|On play")
+ * Arrays.asList("Archer","minion","1","1","1","Card","DealDamageTwoTimes#3,1|On play")
  * name: Archer
  * type: minion
  * attack: 1
@@ -35,13 +41,17 @@ import cards.cardsBodies.Minion;
  */
 public class CardBuilder 
 {
-	static private Hashtable<String, CardAbility> abilityHash = new Hashtable<String, CardAbility>();
-	static private Hashtable<String, CardAbilityOccurence> occurenceHash  = new Hashtable<String, CardAbilityOccurence>();
+	static private Hashtable<String, CardAbility> cardAbilityHash = new Hashtable<String, CardAbility>();
+	static private Hashtable<String, CardAbilityOccurence> cardOccurenceHash  = new Hashtable<String, CardAbilityOccurence>();
+	static private Hashtable<String, MinionAbilityOccurence> minionOccurenceHash  = new Hashtable<String, MinionAbilityOccurence>();
+	static private Hashtable<String, MinionAbility> minionAbilityHash  = new Hashtable<String, MinionAbility>();
 	public CardBuilder()
 	{
-		abilityHash.put("SummonMinion",new CardAbilitySummonMinionLowerHero());
-		abilityHash.put("DealDamage", new CardAbilityDealDamage());
-		occurenceHash.put("On play", new CardAbilityOnPlay());
+		cardAbilityHash.put("SummonMinion",new CardAbilitySummonMinionLowerHero());
+		cardAbilityHash.put("DealDamage", new CardAbilityDealDamage());
+		cardOccurenceHash.put("On play", new CardAbilityOnPlay());
+		minionOccurenceHash.put("MinionDies",new MinionAbilityOccurenceMinionDies());
+		minionAbilityHash.put("GainStats",new MinionAbilityGainStats());
 	}
 	
 	public Card buildCard(List<String> properties)
@@ -62,7 +72,7 @@ public class CardBuilder
 			int manaCost = Integer.parseInt(properties.get(4));
 			Minion minion = new Minion(name,minionHp,minionAttack);
 			{
-				CardAbility abilityObject = abilityHash.get("SummonMinion").clone();
+				CardAbility abilityObject = (CardAbility) cardAbilityHash.get("SummonMinion").clone();
 				((CardAbilitySummonMinionLowerHero)abilityObject).setMinionSummoned(minion);
 				CardAbilityOccurence occurenceObject = new CardAbilityOnPlay();
 				abilityObject.setOccurence(occurenceObject);
@@ -70,16 +80,28 @@ public class CardBuilder
 			}
 			for(int i=5;i<properties.size();i++)
 			{
-				String ability,parameters,occurence,abilityString;
+				String ability,parameters,occurence,abilityString,abilityType;
 				abilityString = properties.get(i);
-				ability = abilityString.substring(0, abilityString.indexOf('#'));
+				ability = abilityString.substring(0, abilityString.indexOf('$'));
+				abilityType = abilityString.substring(abilityString.indexOf('$')+1, abilityString.indexOf('#'));
 				parameters = abilityString.substring(abilityString.indexOf('#')+1, abilityString.indexOf('|'));
 				occurence = abilityString.substring(abilityString.indexOf('|')+1, abilityString.length());
-				CardAbilityOccurence occurenceObject = (CardAbilityOccurence) occurenceHash.get(occurence).clone();
-				CardAbility abilityObject = abilityHash.get(ability).clone();
-				abilityObject .setParameters(parameters);
-				abilityObject.setOccurence(occurenceObject);
-				occurenceObject.registerAbility(abilityObject, minionCard);
+				if(abilityType.equalsIgnoreCase("card"))
+				{
+					CardAbilityOccurence occurenceObject = (CardAbilityOccurence) cardOccurenceHash.get(occurence).clone();
+					CardAbility abilityObject = (CardAbility) cardAbilityHash.get(ability).clone();
+					abilityObject .setParameters(parameters);
+					abilityObject.setOccurence(occurenceObject);
+					occurenceObject.registerAbility(abilityObject, minionCard);
+				}
+				else if(abilityType.equalsIgnoreCase("minion"))
+				{
+					MinionAbilityOccurence occurenceObject = (MinionAbilityOccurence) minionOccurenceHash.get(occurence).clone();
+					MinionAbility abilityObject = (MinionAbility) minionAbilityHash.get(ability).clone();
+					abilityObject .setParameters(parameters);
+					abilityObject.setOccurence(occurenceObject);
+					occurenceObject.registerAbility(abilityObject, minion);
+				}
 			}
 			minionCard.setName(name);
 			card = minionCard;
